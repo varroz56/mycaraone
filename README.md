@@ -14,12 +14,25 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 
  User A 
 
-## Project development phases
+## Project milestones
 
-1. - [] Project planning
-2. - [] Initial docs
-3. - [] Wireframes
-4. - [] Projetc
+1. - [x] Project planning
+2. - [x] Initial docs
+3. - [x] Wireframes
+4. - [x] Project setup
+5. - [x] Allauth integration
+6. - [x] email service integration
+7. - [] User profile app and user page setup
+8. - [] CRUD on user secondary information
+9. - [] Home app with contact form
+10. - [] Motorhomes app and listings
+11. - [] Booking app and Rent/Booking page
+12. - [] Checkout app and payment page
+13. - [] My Bookings app and bookings page
+14.  - [] Deployment to Heroku
+15.  - [] Final testing
+16.  - [] fixing issues
+17.  - [] Project submission 
 
 ## Technologies used
 - [Python](https://python.org)

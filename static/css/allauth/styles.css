@@ -1,0 +1,25 @@
+.card{
+    width: 50rem;
+    box-shadow: black;
+    border-radius: 22px;
+    
+}
+
+a{
+    text-decoration: none;
+    color: grey;
+}
+
+a:hover{
+    font-weight: 600;
+}
+
+li{
+    list-style-type: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .card{
+        width: auto;
+    }
+  }

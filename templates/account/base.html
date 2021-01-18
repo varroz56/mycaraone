@@ -1,8 +1,13 @@
-{% extends "base.html" %} {% block alluth_content %}
-  <div class="container my-5 py-1">
+{% extends "base.html" %} 
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="../../static/css/allauth/styles.css">
+{% endblock %}
+{% block alluth_content %}
+  <div class="container-fluid my-5 py-1">
       <div class="row justify-content-md-center pt-5">
         <div class="col-md-auto">
-          <div class="card" style="width: 50rem;">
+          <div class="card">
             <div class="card-body">
               <title>{% block head_title %}{% endblock %}</title>
               {% block extra_head %} {% endblock %} 

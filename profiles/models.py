@@ -7,3 +7,14 @@ from django.contrib.auth.models import User
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
     return 'images/profile_picture/user_{0}/{1}'.format(instance.user.id, filename)
+
+
+# User Profile stores User related not billing address information
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=50, null=True, blank=True)
+    profile_picture = models.ImageField(
+        default='images/profile_pictures/userlight.png', upload_to=user_directory_path, null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)

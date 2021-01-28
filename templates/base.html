@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--{% block tags  %} to use Django templating system
+      Extending the Base html to other pages.
+    -->
     {% block meta %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -32,7 +35,10 @@
         {% endfor %}
       </ul>
     </div>
-    {% endif %} {% block alluth_content %} {% endblock %}
+    {% endif %} 
+    <!--main content for the Allauth templates, their base template using this too-->
+    {% block alluth_content %} {% endblock %}
+    <!--main content for the project templates, their base template might using this too-->
     {% block main_content %}{% endblock %}
     {% block extra_content %}{% endblock %}
     {% block postload_js %}

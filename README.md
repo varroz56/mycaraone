@@ -40,4 +40,6 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 - [Django-Allauth](https://django-allauth.readthedocs.io/en/latest/) for user authentication
 - [Bootstrap](https://getbootstrap.com/) for styling
 - [Font Awsome](https://fontawesome.com/) for extra styling(icons)
-- 
+
+## User Stories
+The User Stories section have been uploaded to the [UserStories folder](docs/UserStories)

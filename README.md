@@ -42,4 +42,9 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 - [Font Awsome](https://fontawesome.com/) for extra styling(icons)
 
 ## User Stories
-The User Stories section have been uploaded to the [UserStories folder](docs/UserStories)
+This section shows the ways how users can use the site and what options present for them in order to accomplish their goals.
+The User Stories section have been uploaded to the [UserStories folder](docs/UserStories).
+
+
+## Credits
+Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

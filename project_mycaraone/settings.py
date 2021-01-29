@@ -136,7 +136,7 @@ USE_TZ = True
 # adding media url and root
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 
@@ -166,7 +166,7 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 # need to enter email twice on Sign Up
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 # the link to redirect after login or sign up
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profiles/myprofile/'
 
 # EMAIL SETTINGS
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

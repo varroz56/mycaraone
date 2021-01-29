@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!--{% block tags  %} to use Django templating system
+    <!--% block tags  % to use Django templating system
       Extending the Base html to other pages.
     -->
     {% block meta %}
@@ -35,13 +35,11 @@
         {% endfor %}
       </ul>
     </div>
-    {% endif %} 
+    {% endif %}
     <!--main content for the Allauth templates, their base template using this too-->
     {% block alluth_content %} {% endblock %}
     <!--main content for the project templates, their base template might using this too-->
-    {% block main_content %}{% endblock %}
-    {% block extra_content %}{% endblock %}
-    {% block postload_js %}
+    {% block main_content %}{% endblock %} {% block extra_content %}{% endblock %} {% block postload_js %}
     <!-- Bootstrap Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 
 # A view to show user profile page
-class UserProfileView(request):
+
+
+def UserProfileView(request):
     userprofile = request.user.userprofile
 
     context = {

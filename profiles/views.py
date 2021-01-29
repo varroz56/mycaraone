@@ -22,6 +22,7 @@ def UserProfileUpdateView(request):
         form = UserProfileUpdateForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            
     context = {
         'profile': profile,
         'form': form

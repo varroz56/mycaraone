@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
 
 
 # Set deafult path for uploaded user profile pictures
@@ -21,3 +23,15 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+# Receiver to create default userprofile
+# This is called when New user signs up either with email or social account
+
+
+@receiver(user_signed_up)
+def cerate_default_user_profile(sender, **kwargs):
+    user = kwargs['user']
+    UserProfile.objects.create(
+        user=user,
+    )

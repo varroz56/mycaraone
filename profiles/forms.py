@@ -7,7 +7,7 @@ from .models import UserProfile
 # fields and will be able to handle create read update
 
 
-class UserProfileViewForm(ModelForm):
+class UserProfileUpdateForm(ModelForm):
     class Meta:
         model = UserProfile
         fields = ['phone', 'profile_picture']

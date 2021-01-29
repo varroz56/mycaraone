@@ -1,0 +1,22 @@
+{% extends 'base.html' %}{% block main_content %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" type="text/css" href="{% static 'profiles/styles.css' %}">
+{% endblock %}
+{% include 'profiles/includes/navbar.html' %}
+<div class="container-fluid my-5 py-1">
+    <div class="row justify-content-md-center pt-5">
+      <div class="col-md-auto">
+        <div class="card">
+          <div class="card-body">
+            <form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{form.as_p}}
+          <input class="btn btn-success" type="submit" name="Update Information" value="Update">
+          <a class="btn btn-warning align-self-end" href="{% url 'myprofile' %}">Back to the Profile Page</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

@@ -64,3 +64,6 @@ class Motorhome(models.Model):
     picture3 = models.ImageField(upload_to=user_directory_path)
     picture4 = models.ImageField(upload_to=user_directory_path)
     picture5 = models.ImageField(upload_to=user_directory_path)
+
+    def __str__(self):
+        return self.nickname

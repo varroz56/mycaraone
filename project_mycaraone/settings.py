@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     # own apps
     'profiles',
     'motorhomes',
+    'bookings',
 
 ]
 

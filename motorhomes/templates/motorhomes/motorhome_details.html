@@ -1,0 +1,85 @@
+{% extends 'base.html' %}{% block main_content %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'motorhomes/styles.css' %}" />
+{% endblock %} {% include 'profiles/includes/navbar.html' %}
+<div class="my-2 py-3"></div>
+<a class="w-100 btn btn-secondary mt-1" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
+<img
+  class="cover-image img-fluid"
+  src="/media/{{motorhome.picture1}}"
+  alt="cover-image"
+/>
+
+<div class="container-fluid bg-light mx-0 px-3">
+  <div class="album py-5 bg-light">
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="details-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
+          in quibusdam necessitatibus perferendis debitis consequatur aperiam
+          facere nisi id earum repudiandae dicta suscipit, eius harum iste ex
+          assumenda, ducimus quod?
+        </h1>
+      </div>
+      <div class="col-md-6">
+        <img
+          class="content-image img-fluid"
+          src="/media/{{motorhome.picture2}}"
+          alt="content-image"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 order-md-12">
+        <img
+          class="content-image img-fluid"
+          src="/media/{{motorhome.picture3}}"
+          alt="content-image"
+        />
+      </div>
+      <div class="col-md-6 order-md-1">
+        <h1 class="details-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
+          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
+          Architecto.
+        </h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="details-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
+          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
+          Architecto.
+        </h1>
+      </div>
+      <div class="col-md-6">
+        <img
+          class="content-image img-fluid"
+          src="/media/{{motorhome.picture4}}"
+          alt="content-image"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <img
+          class="content-image img-fluid"
+          src="/media/{{motorhome.picture5}}"
+          alt="content-image"
+        />
+      </div>
+      <div class="col-md-6">
+        <h1 class="details-text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
+          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
+          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
+          Architecto.
+        </h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

@@ -7,7 +7,7 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for motorhome in motorhomes %}
       <div class="col">
-        <a class="motorhome-list-details-link" href="#">
+        <a class="motorhome-list-details-link" href="{% url 'motorhome_details' motorhome.id %}">
           <div class="card shadow-sm motorhome-list-card">
             <img
               class="motorhome-card-picture"

@@ -1,3 +1,7 @@
+body, html{
+    height: 100%;
+    overflow-x: hidden;
+}
 .motorhome-list-card:hover{
     transform: scale(1.005);
     transition: 0.2sec;
@@ -8,4 +12,19 @@ a{
 }
 a:hover{
     color: black;
+}
+
+.cover-image{
+    width: 100%;
+    height: auto;
+}
+.content-image {
+    width: 100%;
+    height: auto;
+
+}
+h1.details-text{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%
 }

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}{% block main_content %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'bookings/styles.css' %}" />
+{% endblock %} {% include 'profiles/includes/navbar.html' %}
+<div class="my-5 py-5"></div>
+<div class="container">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-success" value="Create Booking">
+    </form>
+
+</div>
+
+{% endblock %}

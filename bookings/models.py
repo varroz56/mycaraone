@@ -23,4 +23,15 @@ class Booking(models.Model):
     booked_until = models.DateField(default=date.today)
     booked_on = models.DateTimeField(auto_now_add=True)
 
+    status = models.CharField(
+        max_length=50,
+        choices=StatusChoices.choices,
+        default=StatusChoices.BOOKED
+    )
     closed_on = models.DateTimeField(auto_now_add=False, blank=True, null=True)
+
+    class Meta:
+        ordering = ['booked_by', 'booked_on']
+
+    def __str__(self):
+        return f"{self.id} - {self.booked_vehicle.nickname}"

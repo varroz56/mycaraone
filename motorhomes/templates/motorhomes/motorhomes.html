@@ -1,0 +1,33 @@
+{% extends 'base.html' %}{% block main_content %}
+{% load static %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'motorhomes/styles.css' %}">
+{% endblock %}
+{% include 'profiles/includes/navbar.html' %}
+
+<div class="album py-5 bg-dark">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for motorhome in motorhomes %}
+        <div class="col">
+          <div class="card shadow-sm motorhome-list-card">
+            <img class="motorhome-card-picture" src="/media/{{motorhome.picture1}}" alt="{{motorhome.nickname}} Picture">
+            <div class="card-body">
+              <p class="card-text">{{motorhome.nickname}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                </div>
+                <small class="text-muted">9 mins</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

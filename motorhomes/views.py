@@ -1,3 +1,12 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+from .models import Motorhome
+
+
+# A view to list all Motorhomes
+def MotorhomeListView(request):
+    motorhomes = Motorhome.objects.all()
+    context = {
+        'motorhomes': motorhomes}
+    return render(request, 'motorhomes/motorhomes.html', context)

@@ -1,0 +1,90 @@
+/* https://www.w3schools.com/howto/howto_css_parallax.asp */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  color: #777;
+}
+
+.bgimg-1,
+.bgimg-2,
+.bgimg-3 {
+  position: relative;
+  opacity: 0.65;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bgimg-1 {
+  background-image: url("../../../../media/images/home/fc46e1de39588159b7211baacc63bd55.JPG");
+  min-height: 100%;
+}
+
+.bgimg-2 {
+  background-image: url("../../../../media/images/home/H-Line_Concorde_Compact_Aussen_0309.jpg");
+  min-height: 400px;
+}
+
+.bgimg-3 {
+  background-image: url("../../../../media/images/home/Poessl_Trenta_Aussen.jpg");
+  min-height: 400px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  color: #000;
+}
+
+.caption span.border {
+  background-color: #111;
+  color: #fff;
+  padding: 18px;
+  font-size: 25px;
+  letter-spacing: 10px;
+}
+
+h3 {
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font: 20px "Lato", sans-serif;
+  color: #111;
+}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1024px) {
+  .bgimg-1,
+  .bgimg-2,
+  .bgimg-3 {
+    background-attachment: scroll;
+  }
+  .home-login {
+    min-width: 100%;
+  }
+  .contact-form {
+    min-width: 100% !important;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  .home-login {
+    left: 60%;
+    right: 10%;
+  }
+  .contact-form {
+    left: 25%;
+    width: 50%;
+    style="
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    text-align: justify;
+    position: absolute;
+    top: 20%;
+  }
+}

@@ -1,10 +1,45 @@
-{% extends 'base.html' %}{% load static %} {% block extra_css %}
-<link rel="stylesheet" href="{% static 'home/styles.css' %}" />
-{% endblock %}{% block main_content %} {% include 'home/includes/navbar.html' %}
-<div class="my-5 py-5"></div>
+{% extends 'base.html' %}{% load static %}{% load crispy_forms_tags %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
+{% endblock %}
+{% block subtitle %}Homepage{% endblock %}
+{% block navbar %}
+{% include 'home/includes/navbar.html' %}
+{% endblock %}
+{% block main_content %} 
 <div class="container">
-
-
+  <div class="card">
+    <div class="card-header text-center">
+      <h1 class="text-uppercase">Contact Us</h1>
+    </div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">
+          Your Details:
+        </legend>
+        <br />
+        {{contactform.name|as_crispy_field}}
+        {{contactform.email|as_crispy_field}}
+      </fieldset>
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">
+          Subject:
+        </legend>
+        <br />
+        {{contactform.subject|as_crispy_field}}
+      </fieldset>
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">
+          Your Message:
+        </legend>
+        <br />
+        {{contactform.message|as_crispy_field}}
+      </fieldset>
+      <div class="card-footer justify-content-center">
+        <button type="submit" class="btn btn-secondary mw-100">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>
 
 {% endblock %}

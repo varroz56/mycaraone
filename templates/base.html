@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     {% endblock %} {% block extra_meta %} {% endblock %} {% block css %}
+    <!--Customer css for project-->
+    <link rel="stylesheet" href="{% static 'css/project_mycaraone/styles.css' %}">
     <!-- Bootstrap CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
@@ -16,36 +19,67 @@
       integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
       crossorigin="anonymous"
     />
+    <!--Google fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap"
+      rel="stylesheet"
+    />
     {% endblock %} {% block extra_css %} {% endblock %} {% block js %}
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script 
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+
     <!--Font Awsome-->
     <script src="https://kit.fontawesome.com/b132e687e5.js"></script>
+    <!--Stripe-->
+    <script src="https://js.stripe.com/v3/"></script>
     {% endblock %} {% block extra_js %} {% endblock %}
     <title>
-      {% block title %}{% endblock %}{% block subtitle %}{% endblock %}
+      {% block title %}MyCaraOne {% endblock %}{% block subtitle %}{% endblock %}
     </title>
   </head>
   <body>
     <header>{% block navbar %}{% endblock %}</header>
     {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
+    <!--styled django messages-->
+    <div id="django-messages" class="mt-4 pt-4 mb-1 pb-1 text-center text-uppercase">
+        <ul class="messages list-group my-0 py-0">
+            {% for message in messages %}
+            <li{% if message.tags %} class="bg-{{ message.tags }} pt-4 pb-2"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
     </div>
     {% endif %}
     <!--main content for the Allauth templates, their base template using this too-->
-    {% block alluth_content %} {% endblock %}
+    {% block alluth_content %}      {% endblock %}
+
     <!--main content for the project templates, their base template might using this too-->
-    {% block main_content %}{% endblock %} {% block extra_content %}{% endblock %} {% block postload_js %}
-    <!-- Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-      crossorigin="anonymous"
-    ></script>
+    {% block main_content %}  
+
+ 
+    {% endblock %} {% block extra_content %}{% endblock %} {% block postload_js %}
+    <!-- JS to remove Django messages-->
+    <script>
+        var message_ele = document.getElementById("django-messages");
+
+        setTimeout(function(){ 
+          message_ele.style.display = "none"; 
+        }, 3000);
+    </script>
     {% endblock %}
   </body>
 </html>

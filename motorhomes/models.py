@@ -27,7 +27,7 @@ class Vehicle(models.Model):
 # https://docs.djangoproject.com/en/3.1/ref/models/fields/
 def user_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT/images/motorhome_picture/motorhome_<id>/<filename>
-    return 'images/motorhome_pictures/motorhome_{0}/{1}'.format(instance.id, filename)
+    return 'images/motorhome_pictures/{0}'.format(filename)
 # Motorhome model
 
 
@@ -64,6 +64,11 @@ class Motorhome(models.Model):
     picture3 = models.ImageField(upload_to=user_directory_path)
     picture4 = models.ImageField(upload_to=user_directory_path)
     picture5 = models.ImageField(upload_to=user_directory_path)
+
+    artricle1=models.TextField(null=True, blank=True)
+    artricle2=models.TextField(null=True, blank=True)
+    artricle3=models.TextField(null=True, blank=True)
+    artricle4=models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.nickname

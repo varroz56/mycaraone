@@ -30,20 +30,20 @@
         <div class="col-md-9 order-md-12 text-dark">
           <ul class="list-group">
             {% if billingaddress %}
-            <li class="list-group-item">Full Name: {{billingaddress.full_name}}</li>
-            <li class="list-group-item">Email Address: {{billingaddress.email}}</li>
-            <li class="list-group-item">
+            <li class="list-group-item py-1 my-1 rounded">Full Name: {{billingaddress.full_name}}</li>
+            <li class="list-group-item py-1 my-1 rounded">Email Address: {{billingaddress.email}}</li>
+            <li class="list-group-item py-1 my-1 rounded">
               Phone Number: {{billingaddress.phone_number}}
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item py-1 my-1 rounded">
               Address Line 1: {{billingaddress.address_line1}}
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item py-1 my-1 rounded">
               Address Line 2: {{billingaddress.address_line2}}
             </li>
-            <li class="list-group-item">Postcode: {{billingaddress.postcode}}</li>
-            <li class="list-group-item">City: {{billingaddress.city}}</li>
-            <li class="list-group-item">Country: {{billingaddress.country}}</li>
+            <li class="list-group-item py-1 my-1 rounded">Postcode: {{billingaddress.postcode}}</li>
+            <li class="list-group-item py-1 my-1 rounded">City: {{billingaddress.city}}</li>
+            <li class="list-group-item py-1 my-1 rounded">Country: {{billingaddress.country}}</li>
           </ul>
           <a class="btn btn-warning" href="#">Update Billing Address</a>
           <a class="btn btn-danger" href="#">Delete Billing Address</a>
@@ -51,14 +51,14 @@
           <a class="btn btn-success" href="{% url 'create_billing_address' %}">Add Billing Address now</a>
     
           <ul class="list-group">
-            <li class="list-group-item">Full Name: Not yet Added</li>
-            <li class="list-group-item">Email Address: Not yet Added</li>
-            <li class="list-group-item">Phone Number: Not yet Added</li>
-            <li class="list-group-item">Address Line 1: Not yet Added</li>
-            <li class="list-group-item">Address Line 2: Not yet Added</li>
-            <li class="list-group-item">Postcode: Not yet Added</li>
-            <li class="list-group-item">City: Not yet Added</li>
-            <li class="list-group-item">Country: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Full Name: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Email Address: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Phone Number: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Address Line 1: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Address Line 2: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Postcode: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">City: Not yet Added</li>
+            <li class="list-group-item py-1 my-1 rounded">Country: Not yet Added</li>
           </ul>
           {% endif %}
         </div>

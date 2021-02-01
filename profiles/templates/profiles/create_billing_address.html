@@ -1,0 +1,118 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% load static %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'profiles/styles.css' %}"
+/>
+{% endblock %}{% block subtitle %}Create Billing Address{% endblock %} {% block main_content %} {% include 'includes/navbar.html' %}
+<div class="mb-4 pb-4 pt-0 mt-0"></div>
+<p class="display-4 text-uppercase text-center pt-3">add billing address</p>
+
+<div class="mt-3 pt3"></div>
+<div class="album py-5 bg-dark">
+  <div class="card profile-form">
+    <div class="card-text d-flex">
+      <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
+        >Back to the Profile Page</a
+      >
+    </div>
+
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Contact Details:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="full_name"
+          name="full_name"
+          aria-describedby="textHelp"
+          placeholder="Full Name"
+        />
+        <input
+          type="email"
+          class="form-control py-1 my-1"
+          id="email"
+          name="email"
+          aria-describedby="textHelp"
+          placeholder="Email Address"
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="phone_number"
+          name="phone_number"
+          aria-describedby="textHelp"
+          placeholder="Mobile Number"
+        />
+      </fieldset>
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Street Address:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="address_line1"
+          name="address_line1"
+          aria-describedby="textHelp"
+          placeholder="Address Line 1"
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="address_line2"
+          name="address_line2"
+          aria-describedby="textHelp"
+          placeholder="Address Line 2"
+        />
+      </fieldset>
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Location:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="postcode"
+          name="postcode"
+          aria-describedby="textHelp"
+          placeholder="Postcode/ZIP"
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="city"
+          name="city"
+          aria-describedby="textHelp"
+          placeholder="City"
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="country"
+          name="country"
+          aria-describedby="textHelp"
+          placeholder="Country"
+        />
+      </fieldset>
+
+      <div class="card-footer">
+        <div class="card-text">
+          <input
+            class="btn btn-success"
+            type="submit"
+            name="Add Billing Address"
+            value="Add Billing Address"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="card-text d-flex">
+      <a
+        class="btn btn-secondary align-self-end"
+        href="{% url 'myprofile' %}"
+        >Back to the Profile Page</a
+      >
+    </div>
+
+  </div>
+
+  {% endblock %}
+</div>

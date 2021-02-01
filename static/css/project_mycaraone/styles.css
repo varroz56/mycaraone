@@ -1,0 +1,9 @@
+* {
+    font-family: 'Yusei Magic', sans-serif;
+}
+
+img.logo{
+    height: 50px;
+    width: auto;
+    border-radius: 30;
+}

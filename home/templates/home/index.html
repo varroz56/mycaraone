@@ -1,107 +1,57 @@
 {% extends 'base.html' %}{% load static %}{% load crispy_forms_tags %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
-{% endblock %} {% block subtitle %}Homepage{% endblock %} {% block navbar %} {% include 'home/includes/navbar.html' %} {% endblock %} {% block main_content %}
+{% endblock %} {% block subtitle %}Homepage{% endblock %} {% block navbar %} {% include 'includes/navbar.html' %} {% endblock %} {% block main_content %}
 <div class="bgimg-1">
-  <div class="caption">
-    <div
-      class="home-login"
-      style="
-        color: #ddd;
-        background-color: #282e34;
-        text-align: center;
-        padding: 50px 80px;
-        text-align: justify;
-        position: absolute;
-        top: 50%;
-      "
-    >
-    </div>
+  <div class="caption nec text-center text-uppercase">Wlecome to MyCaraOne <br> <a class="nav-item" href="{% url 'account_login' %}">Sign In</a> Or 
+    <a class="nav-item" href="{% url 'account_signup' %}">Sign Up</a>
+    <br> to book your motorhome in minutes
   </div>
 </div>
 
-<div
-  style="
-    color: #777;
-    background-color: white;
-    text-align: center;
-    padding: 50px 80px;
-    text-align: justify;
-  "
->
-  <h3 style="text-align: center">Go for a tour</h3>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur
-    exercitationem quibusdam tempora. Nobis dolores illum ex laudantium? Vero
-    ipsum doloribus dicta, voluptas aliquam facilis corrupti quibusdam corporis.
-    Veniam, odit in!
-  </p>
-</div>
-
-<div class="bgimg-2">
-  <div class="caption">
-    <span class="border">Link to Motorhome listing</span>
-  </div>
-</div>
-
-<div class="bgimg-3">
-  <div class="caption">
-    <span class="border">Link to Rent</span>
-  </div>
-</div>
-
-<div style="position: relative">
-  <div
-    style="
-      color: #ddd;
-      background-color: #282e34;
-      text-align: center;
-      padding: 50px 80px;
-      text-align: justify;
-    "
-  >
+  <div class="nec text-center">
+    <h3 class="">Go for a tour</h3>
     <p>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius, dicta
-      eligendi? Veritatis aut laborum iure explicabo illum eligendi odio, quasi,
-      quas quaerat officia enim nostrum nihil? Aut repellendus voluptatibus
-      facilis?
+      We have Motorhomes for every occasion. From a Family of 6 to a lonely wolf you will find the one that gives you the best experience.
     </p>
   </div>
-</div>
 
-<div class="bgimg-1">
-  <div class="caption">
-    <div
-      class="contact-form"
-    >
-      <div class="card">
-        <div class="card-header text-center">
-          <h1 class="text-uppercase">Contact Us</h1>
-        </div>
-        <form action="" method="POST">
-          {% csrf_token %}
-          <fieldset class="rounded px-3 py-2">
-            <legend class="fieldset-label">Your Details:</legend>
-            <br />
-            {{contactform.name|as_crispy_field}}
-            {{contactform.email|as_crispy_field}}
-          </fieldset>
-          <fieldset class="rounded px-3 py-2">
-            <legend class="fieldset-label">Subject:</legend>
-            <br />
-            {{contactform.subject|as_crispy_field}}
-          </fieldset>
-          <fieldset class="rounded px-3 py-2">
-            <legend class="fieldset-label">Your Message:</legend>
-            <br />
-            {{contactform.message|as_crispy_field}}
-          </fieldset>
-          <div class="card-footer">
-            <button type="submit" class="btn btn-secondary">Submit</button>
-          </div>
-        </form>
-      </div>
+  <div class="bgimg-2">
+    <div class="caption">
+      <span class="border"><a class="nav-item" href="{% url 'motorhomes' %}">Motorhomes</a></span>
     </div>
   </div>
-</div>
 
-{% endblock %}
+  <div class="bgimg-3">
+    <div class="caption">
+      <span class="border"><a href="#">Book Now</a></span>
+    </div>
+  </div>
+
+  <div class="card contact-form">
+    <div class="text-ceter text-uppercase text-black display-5">Contact Us</div>
+    <form action="" method="POST">
+      {% csrf_token %}
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">Your Details:</legend>
+        <br />
+        {{contactform.name|as_crispy_field}}
+        {{contactform.email|as_crispy_field}}
+      </fieldset>
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">Subject:</legend>
+        <br />
+        {{contactform.subject|as_crispy_field}}
+      </fieldset>
+      <fieldset class="rounded px-3 py-2">
+        <legend class="fieldset-label">Your Message:</legend>
+        <br />
+        {{contactform.message|as_crispy_field}}
+      </fieldset>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-secondary">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  {% endblock %}
+</div>

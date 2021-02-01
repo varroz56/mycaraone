@@ -3,9 +3,7 @@ body,
 html {
   height: 100%;
   margin: 0;
-  color: #777;
 }
-
 .bgimg-1,
 .bgimg-2,
 .bgimg-3 {
@@ -17,20 +15,28 @@ html {
   background-size: cover;
 }
 .bgimg-1 {
-  background-image: url("../../../../media/images/home/fc46e1de39588159b7211baacc63bd55.JPG");
+  background-image: url("../../../../media/images/pictures/Baron 560/1800x900/1.jpg");
   min-height: 100%;
 }
 
 .bgimg-2 {
-  background-image: url("../../../../media/images/home/H-Line_Concorde_Compact_Aussen_0309.jpg");
+  background-image: url("../../../../media/images/pictures/Magnum 582/1800x900/1.jpg");
   min-height: 400px;
 }
 
 .bgimg-3 {
-  background-image: url("../../../../media/images/home/Poessl_Trenta_Aussen.jpg");
+  background-image: url("../../../../media/images/pictures/P2 Relax/1800x900/1.jpg");
   min-height: 400px;
 }
 
+.bgimg-4 {
+  background-image: url("../../../../media/images/pictures/R640/1800x900/1.jpg");
+  min-height: 400px;
+}
+.bgimg-5 {
+  background-image: url("../../../../media/images/pictures/Roadcamp/1800x900/1.jpg");
+  min-height: 400px;
+}
 .caption {
   position: absolute;
   left: 0;
@@ -55,15 +61,31 @@ h3 {
   color: #111;
 }
 
+.nec{
+  color: #777;
+  background-color: white;
+  text-align: center;
+  padding: 50px 80px;
+  text-align: justify;
+}
+
 /* Turn off parallax scrolling for tablets and phones */
 @media only screen and (max-device-width: 1024px) {
   .bgimg-1,
   .bgimg-2,
-  .bgimg-3 {
+  .bgimg-3,
+  .bgimg-4 {
     background-attachment: scroll;
   }
   .home-login {
     min-width: 100%;
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    text-align: justify;
+    position: absolute;
+    top: 50%;
   }
   .contact-form {
     min-width: 100% !important;
@@ -74,17 +96,21 @@ h3 {
   .home-login {
     left: 60%;
     right: 10%;
-  }
-  .contact-form {
-    left: 25%;
-    width: 50%;
-    style="
     color: #ddd;
     background-color: #282e34;
     text-align: center;
     padding: 50px 80px;
     text-align: justify;
     position: absolute;
+    top: 50%;
+  }
+  .contact-form {
+    left: 15%;
+    width: 70% !important;
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
     top: 20%;
   }
 }

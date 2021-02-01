@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from checkout.models import BillingAddress
-from .forms import UserProfileUpdateForm, BillingAddressForm
+from .forms import UserProfileUpdateForm
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.views.generic import CreateView
 # A view to show user profile page
 
 
@@ -16,6 +19,8 @@ def UserProfileView(request):
     }
     return render(request, 'profiles/myprofile.html', context)
 
+# A view to add or update user profile
+
 
 def UserProfileUpdateView(request):
     profile = request.user.userprofile
@@ -25,9 +30,15 @@ def UserProfileUpdateView(request):
             request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Profile updated successfully')
+        else:
+            messages.error(
+                request, 'Unable to update User profile, please try again later')
 
     context = {
         'profile': profile,
         'form': form
     }
     return render(request, 'profiles/update_myprofile.html', context)
+
+

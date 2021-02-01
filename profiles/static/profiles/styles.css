@@ -1,18 +1,28 @@
-html, body{
-    background-color: rgb(63, 136, 152);
+html,
+body {
+  background-color: #fff;
 }
 
-.profile-picture{
-    border-radius: 50%;
-    max-height: 250px;
-    max-width: 250px;
+.profile-picture {
+  border-radius: 50%;
+  max-height: 250px;
+  max-width: 250px;
 }
 
-.profile-card{
-    background-color: rgb(181, 122, 51);
-    max-width: 300px;
-
+@media only screen and (max-device-width: 1024px) {
+  .profile-form {
+    min-width: 100% !important;
+  }
 }
-.h-divider{
-    height: 60px;
+
+@media only screen and (min-device-width: 1024px) {
+  .profile-form {
+    left: 15%;
+    width: 70% !important;
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    top: 20%;
+  }
 }

@@ -47,7 +47,6 @@ def UserProfileUpdateView(request):
 
 def CreateBillingAddressView(request):
     """Billing Address form """
-
     user = request.user
     template = 'profiles/create_billing_address.html'
 
@@ -59,12 +58,10 @@ def CreateBillingAddressView(request):
     context = {
         'form': form,
         'user': user,
-        'api_key': settings.GOOGLE_MAPS_API_KEY,
     }
-    print('before post')
+
     if request.method == 'POST':
         form = BillingAddress()
-        print('In post')
         full_name = request.POST.get('full_name', False),
         email = request.POST.get('email', False),
         phone_number = request.POST.get('phone_number', False),
@@ -74,7 +71,6 @@ def CreateBillingAddressView(request):
         city = request.POST.get('locality', False),
         country = request.POST.get('country', False),
 
-        print(full_name)
         try:
             billingaddress = BillingAddress(
                 user=user,
@@ -89,10 +85,63 @@ def CreateBillingAddressView(request):
             )
             billingaddress.save()
             messages.add_message(request, messages.SUCCESS,
-                                 'Billing Address added')
+                                 'Billing Address added, go back to your profile to see the changes')
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to save your Billing Address')
+            return render(request, template, context)
+
+    return render(request, template, context)
+
+
+def UpadeBillingAddressView(request):
+    """Billing Address form """
+    user = request.user
+    template = 'profiles/update_billing_address.html'
+
+    if not BillingAddress.objects.filter(user=user):
+        messages.add_message(request, messages.ERROR,
+                             'You have not added Billing Address yet, please add first')
+        return redirect(CreateBillingAddressView)
+
+    addr = get_object_or_404(BillingAddress, user=request.user)
+
+    form = BillingAddress()
+    context = {
+        'form': form,
+        'user': user,
+        'addr': addr,
+    }
+
+    if request.method == 'POST':
+        form = BillingAddress()
+        full_name = request.POST.get('full_name', False),
+        email = request.POST.get('email', False),
+        phone_number = request.POST.get('phone_number', False),
+        address_line1 = request.POST.get('street_number', False),
+        address_line2 = request.POST.get('route', False),
+        postcode = request.POST.get('postal_code', False),
+        city = request.POST.get('locality', False),
+        country = request.POST.get('country', False),
+
+        try:
+            BillingAddress.objects.filter(id=addr.id).update(
+                user=user,
+                full_name=full_name[0],
+                email=email[0],
+                phone_number=phone_number[0],
+                address_line1=address_line1[0],
+                address_line2=address_line2[0],
+                postcode=postcode[0],
+                city=city[0],
+                country=country[0],
+            )
+
+            messages.add_message(request, messages.SUCCESS,
+                                 'Successfully updated your Billing address, go back to your profile to see the changes')
+        except:
+            messages.add_message(request, messages.ERROR,
+                                 'Sorry, We were unable to update your Billing Address')
             return render(request, template, context)
 
     return render(request, template, context)

@@ -45,7 +45,7 @@
             <li class="list-group-item py-1 my-1 rounded">City: {{billingaddress.city}}</li>
             <li class="list-group-item py-1 my-1 rounded">Country: {{billingaddress.country}}</li>
           </ul>
-          <a class="btn btn-warning" href="#">Update Billing Address</a>
+          <a class="btn btn-warning" href="{% url 'update_billing_address' %}">Update Billing Address</a>
           <a class="btn btn-danger" href="#">Delete Billing Address</a>
           {% else %}
           <a class="btn btn-success" href="{% url 'create_billing_address' %}">Add Billing Address now</a>

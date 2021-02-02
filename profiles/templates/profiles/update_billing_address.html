@@ -1,0 +1,156 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% load static %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'profiles/styles.css' %}"
+/>
+
+{% endblock %} {% block extra_js %}
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtBBOopWDrASbpH_NIOmCju79FuXajEjc&callback=initAutocomplete&libraries=places&v=weekly"
+  defer
+></script>
+<script src="{% static 'profiles/js/googleapi.js' %}"></script>
+
+{% endblock %} {% block subtitle %}Update Billing Address{% endblock %} {% block main_content %} {% include 'includes/navbar.html' %}
+<div class="mb-4 pb-4 pt-0 mt-0"></div>
+<p class="display-4 text-uppercase text-center pt-4 mt-4">update billing address</p>
+
+<div class="mt-3 pt3"></div>
+<div class="album py-5 bg-dark">
+  <div class="card profile-form">
+    <div class="card-text d-flex">
+      <!-- Note: The address components in this sample are typical. You might need to adjust them for
+                 the locations relevant to your app. For more information, see
+           https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+      -->
+
+      <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
+        >Back to the Profile Page</a
+      >
+    </div>
+    <fieldset class="rounded px-3 py-2 text-uppercase">
+      <div id="locationField" class="rounded">
+        <input
+          class="form-control py-1 my-1 text-center"
+          id="autocomplete"
+          placeholder="Search for you address"
+          onFocus="geolocate()"
+          type="text"
+        />
+      </div>
+    </fieldset>
+
+    <form id="address" action="{% url 'update_billing_address' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Contact Details:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="full_name"
+          name="full_name"
+          aria-describedby="textHelp"
+          placeholder="Full Name"
+          value="{{addr.full_name}}"
+          required
+        />
+        <input
+          type="email"
+          class="form-control py-1 my-1"
+          id="email"
+          name="email"
+          aria-describedby="textHelp"
+          placeholder="Email Address"
+          value="{{addr.email}}"
+          required
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="phone_number"
+          name="phone_number"
+          aria-describedby="textHelp"
+          value="{{addr.phone_number}}"
+          placeholder="Phone Number"
+          required
+        />
+      </fieldset>
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Street Address:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="street_number"
+          name="street_number"
+          aria-describedby="textHelp"
+          value="{{addr.address_line1}}"
+          placeholder="Address Line 1"
+          required
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="route"
+          name="route"
+          aria-describedby="textHelp"
+          value="{{addr.address_line2}}"
+          placeholder="Address Line 2"
+          required
+        />
+      </fieldset>
+      <fieldset class="rounded px-3 py-2 text-uppercase">
+        <legend class="fieldset-label">Location:</legend>
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="postal_code"
+          name="postal_code"
+          aria-describedby="textHelp"
+          value="{{addr.postcode}}"
+          placeholder="Postcode/ZIP"
+          required
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="locality"
+          name="locality"
+          aria-describedby="textHelp"
+          value="{{addr.city}}"
+          placeholder="City"
+          required
+        />
+        <input
+          type="text"
+          class="form-control py-1 my-1"
+          id="country"
+          name="country"
+          aria-describedby="textHelp"
+          value="{{addr.country}}"
+          placeholder="Country"
+          required
+        />
+      </fieldset>
+
+      <div class="card-footer">
+        <div class="card-text">
+          <input
+            class="btn btn-success"
+            type="submit"
+            name="Update Billing Address"
+            value="Update Billing Address"
+          />
+        </div>
+      </div>
+    </form>
+    <div class="card-text d-flex">
+      <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
+        >Back to the Profile Page</a
+      >
+    </div>
+  </div>
+
+  {% endblock %}
+</div>

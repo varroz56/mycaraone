@@ -45,10 +45,10 @@
             <li class="list-group-item py-1 my-1 rounded">City: {{billingaddress.city}}</li>
             <li class="list-group-item py-1 my-1 rounded">Country: {{billingaddress.country}}</li>
           </ul>
-          <a class="btn btn-warning" href="{% url 'update_billing_address' %}">Update Billing Address</a>
-          <a class="btn btn-danger" href="{% url 'confirm_delete_billing_address' %}">Delete Billing Address</a>
+          <a class="btn btn-secondary my-3 py-0 mx-3 px-3 text-center" href="{% url 'update_billing_address' %}">Update Billing Address</a>
+          <a class="btn btn-danger  my-3 py-0  mx-3 px-3 text-center" href="{% url 'confirm_delete_billing_address' %}">Delete Billing Address</a>
           {% else %}
-          <a class="btn btn-success" href="{% url 'create_billing_address' %}">Add Billing Address now</a>
+          <a class="btn btn-success self-align-end" href="{% url 'create_billing_address' %}">Add Billing Address</a>
     
           <ul class="list-group">
             <li class="list-group-item py-1 my-1 rounded">Full Name: Not yet Added</li>

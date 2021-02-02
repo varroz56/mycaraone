@@ -1,13 +1,17 @@
 {% extends 'base.html' %}{% block main_content %} {% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'motorhomes/styles.css' %}" />
 {% endblock %} {% include 'includes/navbar.html' %}
-
+<div class="my-3 py-3 bg-dark"></div>
+<p class="display-4 text-uppercase text-center pt-3">motorhomes</p>
 <div class="album py-5 bg-dark">
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for motorhome in motorhomes %}
       <div class="col">
-        <a class="motorhome-list-details-link" href="{% url 'motorhome_details' motorhome.id %}">
+        <a
+          class="motorhome-list-details-link"
+          href="{% url 'motorhome_details' motorhome.id %}"
+        >
           <div class="card shadow-sm motorhome-list-card">
             <img
               class="motorhome-card-picture"
@@ -16,16 +20,16 @@
             />
             <div class="card-body">
               <p class="card-text">{{motorhome.nickname}}</p>
-              <div class="d-flex justify-content-between align-items-center">
                 <p class="card-text">Category: {{motorhome.category}}</p>
-              </div>
-              <div class="d-flex justify-content-between align-items-center">
                 <p class="card-text">
                   Confortable for: {{motorhome.good_for_groups}}
                 </p>
-              </div>
+                <p class="card-text"> Seats: {{motorhome.seats}}</p>
+                <p class="card-text">
+                  Sleep: {{motorhome.persons_to_sleep}}
+                </p>
             </div>
-          </div>  
+          </div>
         </a>
       </div>
       {% endfor %}

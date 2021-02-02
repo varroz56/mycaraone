@@ -65,10 +65,10 @@ class Motorhome(models.Model):
     picture4 = models.ImageField(upload_to=user_directory_path)
     picture5 = models.ImageField(upload_to=user_directory_path)
 
-    artricle1=models.TextField(null=True, blank=True)
-    artricle2=models.TextField(null=True, blank=True)
-    artricle3=models.TextField(null=True, blank=True)
-    artricle4=models.TextField(null=True, blank=True)
+    article1=models.TextField(null=True, blank=True)
+    article2=models.TextField(null=True, blank=True)
+    article3=models.TextField(null=True, blank=True)
+    article4=models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.nickname

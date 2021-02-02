@@ -11,14 +11,11 @@
 
 <div class="container-fluid bg-light mx-0 px-3">
   <div class="album py-5 bg-light">
-    <div class="row">
-      <div class="col-md-6">
-        <h1 class="details-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur
-          in quibusdam necessitatibus perferendis debitis consequatur aperiam
-          facere nisi id earum repudiandae dicta suscipit, eius harum iste ex
-          assumenda, ducimus quod?
-        </h1>
+    <div class="row h-100">
+      <div class="col-md-6 my-auto mx-auto">
+        <p class="details-text">
+          {{motorhome.article1}}
+        </p>
       </div>
       <div class="col-md-6">
         <img
@@ -28,7 +25,7 @@
         />
       </div>
     </div>
-    <div class="row">
+    <div class="row h-100">
       <div class="col-md-6 order-md-12">
         <img
           class="content-image img-fluid"
@@ -36,23 +33,17 @@
           alt="content-image"
         />
       </div>
-      <div class="col-md-6 order-md-1">
-        <h1 class="details-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
-          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
-          Architecto.
-        </h1>
+      <div class="col-md-6 order-md-1 my-auto mx-auto">
+        <p class="details-text">
+          {{motorhome.article2}}
+        </p>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-6">
-        <h1 class="details-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
-          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
-          Architecto.
-        </h1>
+    <div class="row h-100 ">
+      <div class="col-md-6  my-auto mx-auto">
+        <p class="details-text">
+          {{motorhome.article3}}
+        </p>
       </div>
       <div class="col-md-6">
         <img
@@ -62,7 +53,7 @@
         />
       </div>
     </div>
-    <div class="row">
+    <div class="row h-100">
       <div class="col-md-6">
         <img
           class="content-image img-fluid"
@@ -70,16 +61,14 @@
           alt="content-image"
         />
       </div>
-      <div class="col-md-6">
-        <h1 class="details-text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem
-          molestiae animi placeat alias laboriosam quos cum, ea facilis porro,
-          officiis quo numquam minima expedita reiciendis ut aut eaque ipsam?
-          Architecto.
-        </h1>
+      <div class="col-md-6  my-auto mx-auto">
+        <p class="details-text">
+          {{motorhome.article4}}
+        </p>
       </div>
     </div>
   </div>
 </div>
+<a class="w-100 btn btn-secondary mt-4 pt-2 pb-2 mb-4" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
 
 {% endblock %}

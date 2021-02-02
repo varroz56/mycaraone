@@ -22,3 +22,9 @@ class BookingView(CreateView):
     template_name = 'bookings/create_booking.html'
     fields = '__all__'
     success_url = reverse_lazy('create_booking')
+
+# a view to show the availabilty form
+
+
+def MotorhomeFilterView(request):
+    return render(request, 'bookings/motorhome_filter.html')

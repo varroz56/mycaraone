@@ -1,0 +1,23 @@
+html,
+body {
+  background-color: #fff;
+}
+
+
+@media only screen and (max-device-width: 1024px) {
+  .filter-form {
+    min-width: 100% !important;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  .filter-form {
+    left: 15%;
+    width: 70% !important;
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    top: 20%;
+  }
+}

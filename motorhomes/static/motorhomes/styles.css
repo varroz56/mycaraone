@@ -1,30 +1,49 @@
-body, html{
-    height: 100%;
-    overflow-x: hidden;
+body,
+html {
+  height: 100%;
+  overflow-x: hidden;
 }
-.motorhome-list-card:hover{
-    transform: scale(1.005);
-    transition: 0.2sec;
+.motorhome-list-card:hover {
+  transform: scale(1.005);
+  transition: 0.2sec;
 }
-a{
-    text-decoration: none;
-    color: black;
-}
-a:hover{
-    color: black;
+a {
+  text-decoration: none !important;
+  color: black !important;
 }
 
-.cover-image{
-    width: 100%;
-    height: auto;
+a:hover {
+  color: black;
+}
+
+.cover-image {
+  width: 100%;
+  height: auto;
 }
 .content-image {
-    width: 100%;
-    height: auto;
-
+  width: 100%;
+  height: auto;
 }
-h1.details-text{
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%
+h1.details-text {
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+}
+
+@media only screen and (max-device-width: 1024px) {
+  .filter-form {
+    min-width: 100% !important;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  .filter-form {
+    left: 15%;
+    width: 70% !important;
+    color: #ddd;
+    background-color: #282e34;
+    text-align: center;
+    padding: 50px 80px;
+    top: 20%;
+  }
 }

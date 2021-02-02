@@ -1,10 +1,12 @@
-{% extends 'base.html' %}{% block main_content %} {% load static %} {% block extra_css %}
+{% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'motorhomes/styles.css' %}" />
-{% endblock %} {% include 'includes/navbar.html' %}
+{% endblock %} {% block subtitle %}Motorhomes {% endblock %}{% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% block main_content %} 
 <div class="my-3 py-3 bg-dark"></div>
-<p class="display-4 text-uppercase text-center pt-3">motorhomes</p>
+<p class="display-4 text-uppercase text-center mt-4 pt-4">motorhomes</p>
 <div class="album py-5 bg-dark">
   <div class="container">
+    {% include 'motorhomes/includes/motorhome_filter.html' %}
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for motorhome in motorhomes %}
       <div class="col">
@@ -12,24 +14,24 @@
           class="motorhome-list-details-link"
           href="{% url 'motorhome_details' motorhome.id %}"
         >
-          <div class="card shadow-sm motorhome-list-card">
+          <div class="card shadow-sm motorhome-list-card  text-uppercase">
             <img
               class="motorhome-card-picture"
               src="/media/{{motorhome.picture1}}"
               alt="{{motorhome.nickname}} Picture"
             />
             <div class="card-body">
-              <p class="card-text">{{motorhome.nickname}}</p>
-                <p class="card-text">Category: {{motorhome.category}}</p>
-                <p class="card-text">
+              <p class="card-text text-black">{{motorhome.nickname}}</p>
+                <p class="card-text text-black">Category: {{motorhome.category}}</p>
+                <p class="card-text text-black">
                   Confortable for: {{motorhome.good_for_groups}}
                 </p>
-                <p class="card-text"> Seats: {{motorhome.seats}}</p>
-                <p class="card-text">
+                <p class="card-text text-black"> Seats: {{motorhome.seats}}</p>
+                <p class="card-text text-black">
                   Sleep: {{motorhome.persons_to_sleep}}
                 </p>
                 <p class="card-footer">
-                  <div class="card-text">
+                  <div class="card-text text-black">
                     Daily Rental fee: {{motorhome.daily_rental_fee}} EUR
                   </div>
                 </p>

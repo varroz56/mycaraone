@@ -4,7 +4,16 @@
   type="text/css"
   href="{% static 'profiles/styles.css' %}"
 />
-{% endblock %}{% block subtitle %}Create Billing Address{% endblock %} {% block main_content %} {% include 'includes/navbar.html' %}
+
+{% endblock %} {% block extra_js %} 
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtBBOopWDrASbpH_NIOmCju79FuXajEjc&callback=initAutocomplete&libraries=places&v=weekly"
+  defer
+></script>
+<script src="{% static 'profiles/js/googleapi.js' %}"></script>
+
+{% endblock %} {% block subtitle %}Create Billing Address{% endblock %} {% block main_content %} {% include 'includes/navbar.html' %}
 <div class="mb-4 pb-4 pt-0 mt-0"></div>
 <p class="display-4 text-uppercase text-center pt-3">add billing address</p>
 
@@ -12,12 +21,28 @@
 <div class="album py-5 bg-dark">
   <div class="card profile-form">
     <div class="card-text d-flex">
+      <!-- Note: The address components in this sample are typical. You might need to adjust them for
+                 the locations relevant to your app. For more information, see
+           https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+      -->
+
       <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
         >Back to the Profile Page</a
       >
     </div>
+    <fieldset class="rounded px-3 py-2 text-uppercase">
+      <div id="locationField" class="rounded ">
+        <input
+          class="form-control py-1 my-1 text-center"
+          id="autocomplete"
+          placeholder="Search for you address"
+          onFocus="geolocate()"
+          type="text"
+        />
+      </div>
+    </fieldset>
 
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form id="address" action="" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <fieldset class="rounded px-3 py-2 text-uppercase">
         <legend class="fieldset-label">Contact Details:</legend>
@@ -36,6 +61,7 @@
           name="email"
           aria-describedby="textHelp"
           placeholder="Email Address"
+          value="{{user.email}}"
         />
         <input
           type="text"
@@ -43,7 +69,11 @@
           id="phone_number"
           name="phone_number"
           aria-describedby="textHelp"
-          placeholder="Mobile Number"
+          {% if user.userprofile.phone %}
+          value="{{user.userprofile.phone}}"
+          {% else % }
+          placeholder="{{user.userprofile.phone}}"
+          {% endif %}
         />
       </fieldset>
       <fieldset class="rounded px-3 py-2 text-uppercase">
@@ -51,16 +81,16 @@
         <input
           type="text"
           class="form-control py-1 my-1"
-          id="address_line1"
-          name="address_line1"
+          id="street_number"
+          name="street_number"
           aria-describedby="textHelp"
           placeholder="Address Line 1"
         />
         <input
           type="text"
           class="form-control py-1 my-1"
-          id="address_line2"
-          name="address_line2"
+          id="route"
+          name="route"
           aria-describedby="textHelp"
           placeholder="Address Line 2"
         />
@@ -70,16 +100,16 @@
         <input
           type="text"
           class="form-control py-1 my-1"
-          id="postcode"
-          name="postcode"
+          id="postal_code"
+          name="postal_code"
           aria-describedby="textHelp"
           placeholder="Postcode/ZIP"
         />
         <input
           type="text"
           class="form-control py-1 my-1"
-          id="city"
-          name="city"
+          id="locality"
+          name="locality"
           aria-describedby="textHelp"
           placeholder="City"
         />
@@ -105,13 +135,10 @@
       </div>
     </form>
     <div class="card-text d-flex">
-      <a
-        class="btn btn-secondary align-self-end"
-        href="{% url 'myprofile' %}"
+      <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
         >Back to the Profile Page</a
       >
     </div>
-
   </div>
 
   {% endblock %}

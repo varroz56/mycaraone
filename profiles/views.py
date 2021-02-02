@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import CreateView
 # A view to show user profile page
+from django.conf import settings
 
 
 def UserProfileView(request):
@@ -58,6 +59,7 @@ def CreateBillingAddressView(request):
     context = {
         'form': form,
         'user': user,
+        'api_key': settings.GOOGLE_MAPS_API_KEY,
     }
     print('before post')
     if request.method == 'POST':
@@ -66,10 +68,10 @@ def CreateBillingAddressView(request):
         full_name = request.POST.get('full_name', False),
         email = request.POST.get('email', False),
         phone_number = request.POST.get('phone_number', False),
-        address_line1 = request.POST.get('address_line1', False),
-        address_line2 = request.POST.get('address_line2', False),
-        postcode = request.POST.get('postcode', False),
-        city = request.POST.get('city', False),
+        address_line1 = request.POST.get('street_number', False),
+        address_line2 = request.POST.get('route', False),
+        postcode = request.POST.get('postal_code', False),
+        city = request.POST.get('locality', False),
         country = request.POST.get('country', False),
 
         print(full_name)

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}{% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/styles.css' %}" />
+{% endblock %}{% block subtitle %}My Profile{% endblock %}{% block main_content%} {% include 'includes/navbar.html' %}
+<div class="my-3 py-3"></div>
+<p class="display-4 text-uppercase text-center pt-3">my profile</p>
+
+<div class="mt-3 pt3"></div>
+<div class="album py-5 bg-dark">
+  <div class="card profile-form">
+    <div class="container-fluid mt-5">
+      <div class="row px-0 mx-0">
+        <a class="btn btn-secondary align-self-end py-3 my-3" href="{% url 'myprofile' %}"
+          >Back to the Profile Page</a
+        >
+      </div>
+
+      <div class="card card-body profile-card text-center text-dark">
+        <h1 class="text-uppercase">Please confirm Billing Address deletion</h1>
+        <a class="btn btn-danger" href="{% url 'delete_billing_address' %}"
+          >Delete Billing Address</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</div>

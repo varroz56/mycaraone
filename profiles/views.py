@@ -145,3 +145,31 @@ def UpadeBillingAddressView(request):
             return render(request, template, context)
 
     return render(request, template, context)
+
+
+# a view to confirm billing address deletion
+
+def ConfirmDeleteBillingAddressView(request):
+    return render(request, 'profiles/confirm_delete_billing_address.html')
+
+
+# a view to delete billing address
+
+def DeleteBillingAddressView(request):
+    user = request.user
+
+    if not BillingAddress.objects.filter(user=user):
+        messages.add_message(request, messages.WARNING,
+                             'You have no saved Billing Address at the moment')
+        return redirect(UserProfileView)
+
+    try:
+        addr=get_object_or_404(BillingAddress, user=user)
+        addr.delete()
+        messages.add_message(request, messages.SUCCESS,
+                             'Billing Address has been deleted')
+        return redirect(UserProfileView)
+    except:
+        messages.add_message(request, messages.ERROR,
+                             'Unable to delete Billing Address, please try again later or contact us')
+        return redirect(UserProfileView)

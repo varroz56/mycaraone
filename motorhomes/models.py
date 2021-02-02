@@ -70,5 +70,7 @@ class Motorhome(models.Model):
     article3=models.TextField(null=True, blank=True)
     article4=models.TextField(null=True, blank=True)
 
+    daily_rental_fee=models.FloatField()
+
     def __str__(self):
         return self.nickname

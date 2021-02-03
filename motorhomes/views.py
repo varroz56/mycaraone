@@ -20,6 +20,7 @@ def MotorhomeListView(request):
 
     # if motofilter qs is empty, so no matching motorhome for the parameters
     # set do not push the result to motorhomes as want to show all motorhomes and show a warning
+    motorhorhome_msg = True
     if not motofilter.qs:
         motofilter = MotorhomeFilter()
         messages.add_message(request, messages.WARNING,
@@ -28,14 +29,20 @@ def MotorhomeListView(request):
     else:
         # set motorhomes to the filtered qs
         motorhomes = motofilter.qs
-        # send message
-        message = "Found " + str(motorhomes.count()) + " Motorhomes"
+        # if only 1 result
+        if motorhomes.count()==1:
+            message = "Found " + str(motorhomes.count()) + " Motorhome"
+        # if more than 1 result
+        else:
+            message = "Found " + str(motorhomes.count()) + " Motorhomes"
         messages.add_message(request, messages.SUCCESS,
                              message)
 
     context = {
         'motorhomes': motorhomes,
         'motofilter': motofilter,
+        'motorhorhome_msg': motorhorhome_msg,
+
     }
     return render(request, 'motorhomes/motorhomes.html', context)
 

@@ -13,8 +13,7 @@ body {
 }
 
 @media only screen and (min-device-width: 1024px) {
-  .filter-form,
-  .booking-form {
+  .filter-form {
     left: 15%;
     width: 70% !important;
     color: #ddd;
@@ -23,9 +22,14 @@ body {
     padding: 50px 80px;
     top: 20%;
   }
-
-  .booking-form-container{
-    width: 60%;
+  .booking-form {
+    width: 100% !important;
+    color: #ddd;
+    background-color: #282e34;
+    padding: 50px 80px;
+    top: 20%;
   }
+
+
 }
 

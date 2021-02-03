@@ -10,7 +10,7 @@
 <p class="display-4 text-uppercase text-center mt-2 pt-2">
   Book {{motorhome.nickname}}
 </p>
-<div class="container-fluid">
+
   <div class="album py-5 bg-dark">
     <a
       class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
@@ -20,7 +20,7 @@
     </a>
     <div class="container booking-form-container">
       <div class="row">
-        <div class="col-md-12 col-lg-8 align-self-center py-2 my-2">
+        <div class="col-md-12 col-lg-6 align-self-center py-2 my-2">
           <div class="card">
             <img
               class="motorhome-card-picture"
@@ -29,7 +29,7 @@
             />
           </div>
         </div>
-        <div class="col-md-12 col-lg-4 align-self-center py-2 my-2">
+        <div class="col-md-12 col-lg-6 align-self-center py-2 my-2">
           <div class="card booking-form">
             <div class="card-text">
               <div class="row h-100">
@@ -66,9 +66,9 @@
                     enctype="multipart/form-data"
                   >
                     {% csrf_token %}
-                    <fieldset class="rounded px-3 py-2 text-uppercase">
+                    <fieldset class="rounded px-3 py-2 text-uppercase text-center">
                       <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 mx-0 px-0">
                           <span class="field-label">Booking starts</span>
                           <input
                             type="date"
@@ -79,7 +79,7 @@
                             min="0"
                           />
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 mx-0 px-0">
                           <span class="field-label">Booking ends</span>
                           <input
                             type="date"
@@ -92,9 +92,9 @@
                         </div>
                       </div>
                     </fieldset>
-                    <div class="card-text mb-2">
+                    <div class="card-text mb-2 ">
                       <input
-                        class="btn btn-success w-100"
+                        class="btn btn-success w-100 text-dark"
                         type="submit"
                         name="submit"
                         value="Book Motorhome"
@@ -115,7 +115,6 @@
       >
     </div>
   </div>
-</div>
 {% endblock %} {% block postload_js %}
 <script>
   // https://www.webtips.dev/webtips/javascript/how-to-get-the-date-of-tomorrow-in-javascript
@@ -139,7 +138,7 @@
 
   // to create tomorrow
   const tomorrow = new Date();
-  
+
   tomorrow.setDate(tomorrow.getDate() + 1);
 
   const [

@@ -13,7 +13,11 @@ class BookingForm(ModelForm):
         fields = '__all__'
 
 
-
+# This the customer facing form when book from motorhome detailed page
+class BookThisMotorhomeForm(ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['booked_from', 'booked_until']
 
 # # a form to filter Motorhomes
 

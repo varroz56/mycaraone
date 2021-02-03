@@ -1,4 +1,4 @@
-{% load static %}
+{% load static %}{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -45,8 +45,7 @@
 
     <!--Font Awsome-->
     <script src="https://kit.fontawesome.com/b132e687e5.js"></script>
-    <!--Stripe-->
-    <script src="https://js.stripe.com/v3/"></script>
+
     {% endblock %} {% block extra_js %} {% endblock %}
     <title>
       {% block title %}MyCaraOne {% endblock %}{% block subtitle %}{% endblock %}
@@ -54,15 +53,18 @@
   </head>
   <body>
     <header>{% block navbar %}{% endblock %}</header>
+    <!--If motorhome view related message, them it will not present here, only in the motorhome filter form-->
+    {% if not motorhorhome_msg %}
     {% if messages %}
-    <!--styled django messages-->
-    <div id="django-messages" class="mt-4 pt-4 mb-1 pb-1 text-center text-uppercase">
+    <!--styled django message-->
+    <div id="django-messages-top" class="mt-4 pt-4 mb-1 pb-1 text-center text-uppercase">
         <ul class="messages list-group my-0 py-0">
             {% for message in messages %}
             <li{% if message.tags %} class="bg-{{ message.tags }} pt-4 pb-2"{% endif %}>{{ message }}</li>
             {% endfor %}
         </ul>
     </div>
+    {% endif %}
     {% endif %}
     <!--main content for the Allauth templates, their base template using this too-->
     {% block alluth_content %}      {% endblock %}
@@ -73,13 +75,15 @@
  
     {% endblock %} {% block extra_content %}{% endblock %} {% block postload_js %}
     <!-- JS to remove Django messages-->
+    {% if messages %}
     <script>
-        var message_ele = document.getElementById("django-messages");
+        var message_top = document.getElementById("django-messages-top");
 
         setTimeout(function(){ 
-          message_ele.style.display = "none"; 
+          message_top.style.display = "none";
         }, 3000);
     </script>
+    {% endif %}
     {% endblock %}
   </body>
 </html>

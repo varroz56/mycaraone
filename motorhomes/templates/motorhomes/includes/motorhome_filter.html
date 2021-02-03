@@ -9,7 +9,7 @@
 <div class="album py-5 bg-dark">
   <div class="card filter-form">
     <div class="card-text d-flex"></div>
-    <form id="address" action="" method="POST" enctype="multipart/form-data">
+    <form id="address" action="" method="GET" enctype="multipart/form-data">
       {% csrf_token %}
       <fieldset class="rounded px-3 py-2 text-uppercase">
         <div class="row">
@@ -21,6 +21,7 @@
               id="start_date"
               name="start_date"
               aria-describedby="dateHelp"
+              min=""
             />
           </div>
           <div class="col-md-6">
@@ -31,6 +32,7 @@
               id="end_date"
               name="end_date"
               aria-describedby="dateHelp"
+              min=""
             />
           </div>
         </div>
@@ -41,67 +43,61 @@
             <span class="fieldset-label">Seats</span>
             <input
               type="number"
-              class="form-control py-1 my-1"
-              id="required_seats"
-              name="required_seats"
+              class="form-control py-1 my-1 text-center"
+              id="seats"
+              name="seats"
               aria-describedby="numberHelp"
-              value="2"
             />
           </div>
           <div class="col-md-6">
             <span class="fieldset-label">Berths</span>
             <input
               type="number"
-              class="form-control py-1 my-1"
-              id="required_berths"
-              name="required_berths"
+              class="form-control py-1 my-1 text-center"
+              id="persons_to_sleep"
+              name="persons_to_sleep"
               aria-describedby="numberHelp"
-              value="2"
             />
           </div>
         </div>
       </fieldset>
       <fieldset class="rounded px-3 py-2 text-uppercase">
-        <div class="row">
+        <div class="row  text-center">
           <div class="col-md-4">
-            <span class="field-label py-2 my-2">premium choices</span>
-            <select class="py-2 my-2" id="premium_choices">
-              <option value="BASIC">Basic</option>
-              <option value="COMFORT" selected>Comfort</option>
-              <option value="PREMIUM">Premium</option>
-            </select>
+            <span class="field-label py-2 my-2">Category</span>
+            <div class="py-2 my-2" id="category">{{motofilter.form.category}}
+            </div>
           </div>
-          <div class="col-md-4">
-            <span class="field-label py-2 my-2">Group choices</span>
-            <select class="py-2 my-2" id="premium_choices">
-              <option value="SINGLE">Single</option>
-              <option value="COUPLE" selected>Couple</option>
-              <option value="FAMILY">Family</option>
-            </select>
+          <div class="col-md-3">
+            <span class="field-label py-2 my-2">Group</span>
+            <div class="py-2 my-2" id="good_for_groups">
+              {{motofilter.form.good_for_groups}}
+            </div>
           </div>
-          <div class="col-md-4">
-            <span class="field-label py-2 my-2">daily rental fee</span>
-            <select class="py-2 my-2" id="daily_rental_fee_choices">
-              <option value="UNDER100">Under 100 EUR</option>
-              <option value="UNDER150" selected>Under 150 EUR</option>
-              <option value="UNDER200">Under 200 EUR</option>
-              <option value="200ABOVE">200 and above</option>
-            </select>
+          <div class="col-md-5">
+            <span class="field-label py-2 my-2">Rental fee/Day</span>
+            <div
+              class="py-2 mt-2"
+            >{{motofilter.form.daily_rental_fee}}</p>
           </div>
         </div>
+        <hr class="bg-black">
       </fieldset>
-      <div class="card-footer">
         <div class="card-text">
-          <input
+          <div
             class="w-100 btn btn-secondary mt-4"
-            type="submit"
-            name="Search"
-            value="Search"
-          />
+          >  <button type="submit" class="btn btn-secondary w-100" value="submit">Search</button>
         </div>
       </div>
     </form>
   </div>
 </div>
   {% endblock %}
+  <!--To set the default date value in the filter form-->
+  {% block postload_js %}
+  <script>
+    document.querySelector("#start_date").valueAsDate = new Date();
+    document.querySelector("#end_date").valueAsDate = new Date();
+  </script>
+{% endblock %}
 

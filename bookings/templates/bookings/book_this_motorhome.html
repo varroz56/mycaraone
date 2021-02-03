@@ -118,7 +118,40 @@
 </div>
 {% endblock %} {% block postload_js %}
 <script>
-  document.querySelector("#start_date").valueAsDate = new Date();
-  document.querySelector("#end_date").valueAsDate = new Date();
+  // https://www.webtips.dev/webtips/javascript/how-to-get-the-date-of-tomorrow-in-javascript
+  // create new date const for today
+  const today= new Date();
+  //define config format
+  const config = {
+  year:  'numeric',
+  month: '2-digit',
+  day:   '2-digit'
+  };
+  const dateTimeFormat = new Intl.DateTimeFormat('default', config);
+  // create array with the required attrs and format
+  const [
+    { value: month },,
+    { value: day },,
+    { value: year }
+  ] = dateTimeFormat.formatToParts(today);
+  // define string for min date 
+  min_start_date = (`${year}-${day}-${month}`);
+
+  // to create tomorrow
+  const tomorrow = new Date();
+  
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  const [
+    { value: emonth },,
+    { value: eday },,
+    { value: eyear }
+  ] = dateTimeFormat.formatToParts(tomorrow);
+  min_end_date = (`${eyear}-${eday}-${emonth}`);
+  // set default and min values for date input
+  document.getElementById("start_date").setAttribute("min", min_start_date);
+  document.getElementById("start_date").value = min_start_date;
+  document.getElementById("end_date").setAttribute("min", min_end_date);
+  document.getElementById("end_date").value =min_end_date;
 </script>
 {% endblock %}

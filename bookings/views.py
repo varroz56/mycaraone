@@ -42,13 +42,18 @@ def BookThisMotorhome(request, pk):
         'form': form,
     }
     if request.method == 'POST':
-
+        # get the dates from the form
         booked_from = request.POST.get('start_date', False)
         booked_until = request.POST.get('end_date', False)
+        # using dateutils to parse the date passed from the page to django accepted format
         booked_until = dateutil.parser.parse(booked_until)
         booked_from = dateutil.parser.parse(booked_from)
-        print(booked_from)
+        td = booked_until-booked_from
+        # get days to count the total
+        days = td.days
+
         try:
+            # create booking with the given details, others set to default
             booking = Booking(
                 booked_by=user,
                 booked_vehicle=motorhome,
@@ -56,14 +61,14 @@ def BookThisMotorhome(request, pk):
                 booked_until=booked_until,
             )
             booking.save()
-            
-            template = 'checkout/checkout.html'
+            # send booking details and days to checkout view
             context = {
                 'booking': booking,
+                'days': days,
             }
             messages.add_message(request, messages.SUCCESS,
                                  "Your Booking has been created, let's go to checkout")
-            return redirect(CheckoutView, context)
+            return redirect(reverse('checkout'), context)
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to create your booking, please try again or contact us')

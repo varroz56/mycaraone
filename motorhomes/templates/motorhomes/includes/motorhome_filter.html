@@ -1,17 +1,19 @@
-{% extends 'base.html' %}{% load crispy_forms_tags %} {% load static %} {% block extra_css %}
-<link
-  rel="stylesheet"
-  type="text/css"
-  href="{% static 'profiles/styles.css' %}"
-/>
-{% endblock %} {% block subtitle %}{% endblock %} {% block main_content %}
 <div class="mt-3 pt3"></div>
-<div class="album py-5 bg-dark">
+<div class="album py-5 bg-dark mb-3  mx-0 px-0">
   <div class="card filter-form">
-    <div class="card-text d-flex"></div>
+    {% if messages %}
+    <!--styled django message-->
+    <div id="django-messages-form-results" class="my-2 py2 text-center text-uppercase">
+        <ul class="messages list-group">
+            {% for message in messages %}
+            <li{% if message.tags %} class="bg-{{ message.tags }} py-2 text-dark"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}  
     <form id="address" action="" method="GET" enctype="multipart/form-data">
       {% csrf_token %}
-      <fieldset class="rounded px-3 py-2 text-uppercase">
+      <fieldset class="rounded px-3 py-2 text-uppercase">    
         <div class="row">
           <div class="col-md-6">
             <span class="field-label">Booking starts</span>
@@ -65,8 +67,7 @@
         <div class="row  text-center">
           <div class="col-md-4">
             <span class="field-label py-2 my-2">Category</span>
-            <div class="py-2 my-2" id="category">{{motofilter.form.category}}
-            </div>
+            <div class="py-2 my-2" id="category">{{motofilter.form.category}}</div>
           </div>
           <div class="col-md-3">
             <span class="field-label py-2 my-2">Group</span>
@@ -78,21 +79,20 @@
             <span class="field-label py-2 my-2">Rental fee/Day</span>
             <div
               class="py-2 mt-2"
-            >{{motofilter.form.daily_rental_fee}}</p>
+            >{{motofilter.form.daily_rental_fee__lte}}</p>
           </div>
         </div>
         <hr class="bg-black">
       </fieldset>
         <div class="card-text">
-          <div
-            class="w-100 btn btn-secondary mt-4"
-          >  <button type="submit" class="btn btn-secondary w-100" value="submit">Search</button>
+          <div class="w-100 btn bg-secondary mt-4">
+              <button type="submit" class="btn btn-secondary w-100" value="submit">Search</button>
+          </div>
         </div>
-      </div>
     </form>
   </div>
 </div>
-  {% endblock %}
+
   <!--To set the default date value in the filter form-->
   {% block postload_js %}
   <script>

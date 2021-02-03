@@ -33,6 +33,7 @@ h1.details-text {
 @media only screen and (max-device-width: 1024px) {
   .filter-form {
     min-width: 100% !important;
+    margin: 0 auto 0 auto;
   }
 }
 
@@ -45,5 +46,8 @@ h1.details-text {
     text-align: center;
     padding: 50px 80px;
     top: 20%;
+  }
+  #django-messages-results-warning.li{
+    font: black !important;
   }
 }

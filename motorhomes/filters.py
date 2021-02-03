@@ -17,6 +17,10 @@ GROUP_CHOICES = (
 
 class MotorhomeFilter(django_filters.FilterSet):
     """ using django_filters to render the filtered motorhome results in the motorhome view """
+    # daily rental fee search for less tahn or equal results
+    daily_rental_fee__lte = django_filters.NumberFilter(
+        field_name="daily_rental_fee", lookup_expr='lte')
+
     class Meta:
         model = Motorhome
-        fields = ['seats', 'persons_to_sleep', 'daily_rental_fee', 'category', 'good_for_groups']
+        fields = ['seats', 'persons_to_sleep', 'category', 'good_for_groups']

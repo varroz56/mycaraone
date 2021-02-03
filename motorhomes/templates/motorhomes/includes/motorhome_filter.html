@@ -13,32 +13,6 @@
     {% endif %}  
     <form id="address" action="" method="GET" enctype="multipart/form-data">
       {% csrf_token %}
-      <fieldset class="rounded px-3 py-2 text-uppercase">    
-        <div class="row">
-          <div class="col-md-6">
-            <span class="field-label">Booking starts</span>
-            <input
-              type="date"
-              class="form-control py-1 my-1"
-              id="start_date"
-              name="start_date"
-              aria-describedby="dateHelp"
-              min=""
-            />
-          </div>
-          <div class="col-md-6">
-            <span class="field-label">Booking ends</span>
-            <input
-              type="date"
-              class="form-control py-1 my-1"
-              id="end_date"
-              name="end_date"
-              aria-describedby="dateHelp"
-              min=""
-            />
-          </div>
-        </div>
-      </fieldset>
       <fieldset class="rounded px-3 py-2 text-uppercase inline">
         <div class="row">
           <div class="col-md-6">

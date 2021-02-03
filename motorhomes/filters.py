@@ -20,7 +20,12 @@ class MotorhomeFilter(django_filters.FilterSet):
     # daily rental fee search for less tahn or equal results
     daily_rental_fee__lte = django_filters.NumberFilter(
         field_name="daily_rental_fee", lookup_expr='lte')
+    # seats and berths to be gte
+    seats__gte = django_filters.NumberFilter(
+        field_name="seats", lookup_expr='gte')
+    persons_to_sleep__gte = django_filters.NumberFilter(
+        field_name="persons_to_sleep", lookup_expr='gte')
 
     class Meta:
         model = Motorhome
-        fields = ['seats', 'persons_to_sleep', 'category', 'good_for_groups']
+        fields = ['category', 'good_for_groups']

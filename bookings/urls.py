@@ -1,9 +1,9 @@
 from django.urls import path
 
-from .views import BookingListView, BookingView, MotorhomeFilterView
+from .views import BookingListView, BookingView, BookThisMotorhome
 
 urlpatterns = [
     path('all/', BookingListView, name='allbookings'),
     path('create_booking/', BookingView.as_view(), name='create_booking'),
-    path('search/', MotorhomeFilterView, name="motorhome_filter"),
+    path('book_this_motorhome/<int:pk>', BookThisMotorhome, name='book_this_motorhome'),
 ]

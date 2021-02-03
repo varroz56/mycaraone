@@ -1,0 +1,124 @@
+{% extends 'base.html' %}{% load crispy_forms_tags %} {% load static %} {% block extra_css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{% static 'bookings/styles.css' %}"
+/>
+
+{% endblock %}{% block subtitle %}Book {{motorhome.nickname}}{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}{% block main_content %}
+<div class="mb-5 pb-5 pt-0 mt-0"></div>
+<p class="display-4 text-uppercase text-center mt-2 pt-2">
+  Book {{motorhome.nickname}}
+</p>
+<div class="container-fluid">
+  <div class="album py-5 bg-dark">
+    <a
+      class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
+      href="{% url 'motorhome_details' motorhome.id %}"
+    >
+      Back to the {{motorhome.nickname}} detailed page
+    </a>
+    <div class="container booking-form-container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8 align-self-center py-2 my-2">
+          <div class="card">
+            <img
+              class="motorhome-card-picture"
+              src="/media/{{motorhome.picture1}}"
+              alt="{{motorhome.nickname}} Picture"
+            />
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4 align-self-center py-2 my-2">
+          <div class="card booking-form">
+            <div class="card-text">
+              <div class="row h-100">
+                <div class="col-md-8 my-auto mx-auto">
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Motorhome: {{motorhome.nickname}}
+                  </p>
+                  <br />
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Seats: {{motorhome.seats}}
+                  </p>
+                  <br />
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Berths: {{motorhome.persons_to_sleep}}
+                  </p>
+                  <br />
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Double beds: {{motorhome.number_of_double_beds}}
+                  </p>
+                  <br />
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Category: {{motorhome.category}}
+                  </p>
+                  <br />
+                  <p class="details-text text-uppercase py-0 my-0">
+                    Daily Rental fee: {{motorhome.daily_rental_fee}} EUR
+                  </p>
+                  <br />
+                </div>
+                  <form
+                    id="address"
+                    action=""
+                    method="POST"
+                    enctype="multipart/form-data"
+                  >
+                    {% csrf_token %}
+                    <fieldset class="rounded px-3 py-2 text-uppercase">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <span class="field-label">Booking starts</span>
+                          <input
+                            type="date"
+                            class="form-control py-1 my-1"
+                            id="start_date"
+                            name="start_date"
+                            aria-describedby="dateHelp"
+                            min="0"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <span class="field-label">Booking ends</span>
+                          <input
+                            type="date"
+                            class="form-control py-1 my-1"
+                            id="end_date"
+                            name="end_date"
+                            aria-describedby="dateHelp"
+                            min="+1"
+                          />
+                        </div>
+                      </div>
+                    </fieldset>
+                    <div class="card-text mb-2">
+                      <input
+                        class="btn btn-success w-100"
+                        type="submit"
+                        name="submit"
+                        value="Book Motorhome"
+                      />
+                    </div>
+                  </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-text w-100">
+      <a
+        class="btn btn-secondary w-100 my-3 py-3 text-dark text-uppercase"
+        href="{% url 'motorhome_details' motorhome.id %}"
+        >Back to the {{motorhome.nickname}} detailed page</a
+      >
+    </div>
+  </div>
+</div>
+{% endblock %} {% block postload_js %}
+<script>
+  document.querySelector("#start_date").valueAsDate = new Date();
+  document.querySelector("#end_date").valueAsDate = new Date();
+</script>
+{% endblock %}

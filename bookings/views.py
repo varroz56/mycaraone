@@ -1,8 +1,10 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from .models import Booking
 from .forms import BookingForm
+
+from motorhomes.models import Motorhome
 
 # a view to show all bookings
 
@@ -23,8 +25,17 @@ class BookingView(CreateView):
     fields = '__all__'
     success_url = reverse_lazy('create_booking')
 
-# a view to show the availabilty form
+# a view to create booking with a choosen vehicle
 
 
-def MotorhomeFilterView(request):
-    return render(request, 'bookings/motorhome_filter.html')
+def BookThisMotorhome(request, pk):
+    """ This view is to create a booking after choosing motorhome """
+
+    user = request.user
+    template = 'bookings/book_this_motorhome.html'
+    motorhome = get_object_or_404(Motorhome, pk=pk)
+
+    context = {
+        'motorhome': motorhome,
+    }
+    return render(request, template, context)

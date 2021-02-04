@@ -17,7 +17,7 @@ def CheckoutView(request):
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-
+    print(stripe_secret_key)
     # if request.method=='POST':
     user = request.user
     motorhome = Motorhome.objects.get(pk=1)
@@ -32,5 +32,7 @@ def CheckoutView(request):
         context = {
             'billingaddress': None,
             'motorhome': motorhome,
+            'stripe_public_key': stripe_public_key,
+            'client_secret': stripe_secret_key,
         }
     return render(request, 'checkout/checkout.html', context)

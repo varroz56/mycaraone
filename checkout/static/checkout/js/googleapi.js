@@ -6,7 +6,6 @@
 // <script
 // src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
 
-let placeSearch;
 let autocomplete;
 const componentForm = {
   street_number: "short_name",

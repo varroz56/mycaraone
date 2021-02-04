@@ -1,0 +1,31 @@
+@media only screen and (max-device-width: 1024px) {
+    .checkout-form {
+      min-width: 100% !important;
+      margin: 0 auto 0 auto;
+    }
+    #motorhome-details{
+      min-width: 100%;
+    }
+    #billing-details{
+      min-width: 100%;
+    }
+    #payment-details{
+      min-width: 100%;
+    }
+
+  }
+  
+  @media only screen and (min-device-width: 1024px) {
+    .checkout-form {
+      width: 70%;
+      color: #ddd;
+      background-color: #282e34;
+      text-align: center;
+      padding: 50px 80px;
+    }
+    #django-messages-results-warning.li{
+      font: black !important;
+    }
+
+  }
+  

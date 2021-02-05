@@ -28,6 +28,7 @@ def CheckoutView(request):
     booked_from = request.session['booked_from']
     booked_until = request.session['booked_until']
 
+    # set reverse url 
     reverse_url = ('/bookings/book_this_motorhome/' + mid)
     # if request.method=='POST':
     user = request.user

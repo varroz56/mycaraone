@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView
 from .models import Booking
+from profiles.models import UserProfile
 from .forms import BookingForm, BookThisMotorhomeForm
 from django.contrib import messages
 from motorhomes.models import Motorhome
@@ -46,26 +47,42 @@ def BookThisMotorhome(request, pk):
         booked_from = request.POST.get('start_date', False)
         booked_until = request.POST.get('end_date', False)
         # using dateutils to parse the date passed from the page to django accepted format
-        booked_until = dateutil.parser.parse(booked_until)
-        booked_from = dateutil.parser.parse(booked_from)
-        td = booked_until-booked_from
+        booked_until_parsed = dateutil.parser.parse(booked_until)
+        booked_from_parsed = dateutil.parser.parse(booked_from)
+        td = booked_until_parsed-booked_from_parsed
         # get days to count the total
         days = td.days
+        total = td.days*motorhome.daily_rental_fee
 
         try:
+
             # create booking with the given details, others set to default
             booking = Booking(
                 booked_by=user,
                 booked_vehicle=motorhome,
-                booked_from=booked_from,
-                booked_until=booked_until,
+                booked_from=booked_from_parsed,
+                booked_until=booked_until_parsed,
             )
             booking.save()
             # send booking details and days to checkout view
+
             context = {
-                'booking': booking,
-                'days': days,
+                'motorhome': motorhome,
+                'form': form,
             }
+            # add booking information to session
+            # so it can be accessed later on
+            request.session['motorhome.pk'] = pk
+            request.session['user.pk'] = user.pk
+            request.session['days'] = days
+            request.session['total'] = total
+            request.session['booked_from'] = booked_from
+            request.session['booked_until'] = booked_until
+            request.session['booking_id'] = booking.booking_id
+            # uopdate userprofile instance with the last booking ref
+            user_last_booking = UserProfile.objects.filter(pk=user.id).update(
+                last_booking_ref=booking.booking_id)
+
             messages.add_message(request, messages.SUCCESS,
                                  "Your Booking has been created, let's go to checkout")
             return redirect(reverse('checkout'), context)

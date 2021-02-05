@@ -19,6 +19,9 @@ class UserProfile(models.Model):
     phone = models.CharField(max_length=50, null=True, blank=True)
     profile_picture = models.ImageField(
         default='images/profile_pictures/userlight.png', upload_to=user_directory_path, null=True, blank=True)
+
+    last_booking_ref = models.CharField(
+        max_length=32, null=True, blank=True, default=None)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

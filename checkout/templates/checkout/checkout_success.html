@@ -1,15 +1,59 @@
 {% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'checkout/styles.css' %}" />
-{% endblock %} {% block subtitle %} Checkout Success{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
-{% block main_content %} 
+{% endblock %} {% block subtitle %} Checkout Success{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %} {% block main_content %}
 <div class="my-3 py-3"></div>
-<p class="display-4 text-uppercase text-center pt-3">checkout Success</p>
+<p class="display-4 text-uppercase text-center pt-3">Booking summary</p>
+<div class="mt-3 pt3"></div>
+<div class="album py-5 bg-dark">
+  <div class="checkout-success-form bg-dark">
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <div class="col-md-0 col-lg-4 d-none d-lg-block self-alig-center mb-2 pb-2">
+          <img
+            class="content-image img-fluid"
+            src="/media/{{bookingsummary.booking.booked_vehicle.picture2}}"
+            alt="content-image"
+          />
+        </div>
+  
+        <div class="col-md-12 col-lg-4 self-alig-center">
+          <div class="card card-body profile-card text-center text-dark">
+            <ul class="list-group text-uppercase">
+              <li class="list-group-item py-1 my-1 rounded">
+                Reference number: {{bookingsummary.booking_reference}}
+              </li>
 
-  <div class="album py-5 mx-0 px-0 bg-dark w-100">
-    <div class="container">
-        Booking reference number: {{bookingsummary.booking_reference}}
+              <li class="list-group-item py-1 my-1 rounded">
+                Pickup date: {{bookingsummary.booking.booked_from}}
+              </li>
+              <li class="list-group-item py-1 my-1 rounded">
+                drop off date: {{bookingsummary.booking.booked_until}}
+              </li>
+              <li class="list-group-item py-1 my-1 rounded">
+                vehicle: {{bookingsummary.booking.booked_vehicle}}
+              </li>
+              <li class="list-group-item py-1 my-1 rounded">
+                Status: {{bookingsummary.booking.status}}
+              </li>
+              <li class="list-group-item py-1 my-1 rounded">
+                Total Paid: {{bookingsummary.booking_total}}
+              </li>
+              <li class="list-group-item py-1 my-1 rounded">
+                Booking made on: {{bookingsummary.date_created}}
+              </li>
+              </ul>
+          </div>
+        </div>
+        <div class="col-md-0 col-lg-4 d-none d-lg-block self-alig-center mb-2 pb-2">
+          <img
+            class="content-image img-fluid"
+            src="/media/{{bookingsummary.booking.booked_vehicle.picture3}}"
+            alt="content-image"
+          />
+        </div>
+      </div>
     </div>
   </div>
-
+</div>
 
 {% endblock %}

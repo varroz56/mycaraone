@@ -9,6 +9,8 @@ from motorhomes.models import Motorhome
 import stripe
 import json
 
+import dateutil
+from dateutil.parser import parse
 # A Checkout view
 
 
@@ -17,22 +19,47 @@ def CheckoutView(request):
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    print(stripe_secret_key)
+
+    # get vars from session
+    mid = request.session['motorhome.pk']
+    uid = request.session['user.pk']
+    days = request.session['days']
+    total = request.session['total']
+    booked_from = request.session['booked_from']
+    booked_until = request.session['booked_until']
+
+    reverse_url = ('/bookings/book_this_motorhome/' + mid)
     # if request.method=='POST':
     user = request.user
-    motorhome = Motorhome.objects.get(pk=1)
-    if BillingAddress.objects.filter(user=user):
-        billingaddress = BillingAddress.objects.get(user=user)
 
-        context = {
-            'billingaddress': billingaddress,
-            'motorhome': motorhome,
-        }
+    if user.id != uid:
+        return render(reverse_url)
+
     else:
-        context = {
-            'billingaddress': None,
-            'motorhome': motorhome,
-            'stripe_public_key': stripe_public_key,
-            'client_secret': stripe_secret_key,
-        }
-    return render(request, 'checkout/checkout.html', context)
+        motorhome = Motorhome.objects.get(pk=mid)
+
+        if BillingAddress.objects.filter(user=user):
+            billingaddress = BillingAddress.objects.get(user=user)
+
+            context = {
+                'days': days,
+                'total': total,
+                'booked_from': dateutil.parser.parse(booked_from),
+                'booked_until': dateutil.parser.parse(booked_until),
+                'billingaddress': billingaddress,
+                'motorhome': motorhome,
+                'stripe_public_key': stripe_public_key,
+                'client_secret': stripe_secret_key,
+            }
+        else:
+            context = {
+                'days': days,
+                'total': total,
+                'booked_from': dateutil.parser.parse(booked_from),
+                'booked_until': dateutil.parser.parse(booked_until),
+                'billingaddress': None,
+                'motorhome': motorhome,
+                'stripe_public_key': stripe_public_key,
+                'client_secret': stripe_secret_key,
+            }
+        return render(request, 'checkout/checkout.html', context)

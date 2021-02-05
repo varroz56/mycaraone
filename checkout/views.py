@@ -41,6 +41,18 @@ def CheckoutView(request):
         return render(reverse_url)
 
     else:
+        # using stripe inbuilt methods
+        # stripe total 
+        stripe_total = (int(total)*100)
+
+        # passing the secret key to stripe
+        stripe.api_key = stripe_secret_key
+        # creating payment intent
+        intent = stripe.PaymentIntent.create(
+            amount=stripe_total,
+            currency=settings.STRIPE_CURRENCY,
+        )
+
         motorhome = Motorhome.objects.get(pk=mid)
 
         if BillingAddress.objects.filter(user=user):
@@ -54,7 +66,7 @@ def CheckoutView(request):
                 'billingaddress': billingaddress,
                 'motorhome': motorhome,
                 'stripe_public_key': stripe_public_key,
-                'client_secret': stripe_secret_key,
+                'client_secret': intent.client_secret,
             }
         else:
             context = {
@@ -65,6 +77,6 @@ def CheckoutView(request):
                 'billingaddress': None,
                 'motorhome': motorhome,
                 'stripe_public_key': stripe_public_key,
-                'client_secret': stripe_secret_key,
+                'client_secret': intent.client_secret,
             }
         return render(request, 'checkout/checkout.html', context)

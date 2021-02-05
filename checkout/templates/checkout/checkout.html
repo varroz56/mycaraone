@@ -1,4 +1,4 @@
-{% extends 'base.html' %}{% block main_content %} {% load static %} {% block extra_css %}
+{% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'checkout/styles.css' %}" />
 {% endblock %} {% block extra_js %}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -9,6 +9,7 @@
 <script src="{% static 'checkout/js/googleapi.js' %}"></script>
 
 {% endblock %} {% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% block main_content %} 
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">checkout</p>
 

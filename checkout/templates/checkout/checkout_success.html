@@ -1,0 +1,15 @@
+{% extends 'base.html' %}{% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'checkout/styles.css' %}" />
+{% endblock %} {% block subtitle %} Checkout Success{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% block main_content %} 
+<div class="my-3 py-3"></div>
+<p class="display-4 text-uppercase text-center pt-3">checkout Success</p>
+
+  <div class="album py-5 mx-0 px-0 bg-dark w-100">
+    <div class="container">
+        Booking reference number: {{bookingsummary.booking_reference}}
+    </div>
+  </div>
+
+
+{% endblock %}

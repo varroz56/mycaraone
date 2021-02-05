@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
+from django.http import HttpResponse
 from django.conf import settings
-
+from django.views.decorators import require_POST
 from .models import BillingAddress, BookingSummary
 from bookings.models import Booking
 from motorhomes.models import Motorhome
@@ -13,6 +14,25 @@ from django.contrib import messages
 
 import dateutil
 from dateutil.parser import parse
+
+# this is to cache checkout data
+
+
+def cache_checkout_data(request):
+    try:
+
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.add_message(
+            request, messages.ERROR, "Sorry we can't process your payment now. Please try again")
+        return HttpResponse(content=e, status=400)
+
+
 # A Checkout view
 
 

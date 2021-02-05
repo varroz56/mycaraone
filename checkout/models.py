@@ -48,15 +48,16 @@ class BookingSummary(models.Model):
 
     booking_total = models.DecimalField(
         max_digits=10, decimal_places=2, null=False, blank=False)
-
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False,
+                                  default='')
     def create_booking_ref(self):
         # create ref using uuid
         return uuid.uuid4().hex.upper()
 
     def save(self, *args, **kwargs):
         # if not set, create booking ref
-        if not self.order_number:
-            self.order_number = self.create_booking_ref()
+        if not self.booking_reference:
+            self.booking_reference = self.create_booking_ref()
         super().save(*args, **kwargs)
 
     def __str__(self):

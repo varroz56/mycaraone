@@ -8,6 +8,7 @@ from motorhomes.models import Motorhome
 # CodeInstitute checkout app
 import stripe
 import json
+from django.contrib import messages
 
 import dateutil
 from dateutil.parser import parse
@@ -28,12 +29,15 @@ def CheckoutView(request):
     booked_from = request.session['booked_from']
     booked_until = request.session['booked_until']
 
-    # set reverse url 
-    reverse_url = ('/bookings/book_this_motorhome/' + mid)
+    # set reverse url
+    reverse_url = ('/bookings/book_this_motorhome/' + str(mid))
     # if request.method=='POST':
     user = request.user
 
     if user.id != uid:
+        messages.add_message(
+            request, messages.ERROR, 'Sorry, We were unable render the checkout page, please try again or contact us')
+
         return render(reverse_url)
 
     else:

@@ -1,3 +1,8 @@
+.card>.list-group {
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
 @media only screen and (max-device-width: 1024px) {
     .checkout-form {
       min-width: 100% !important;
@@ -17,7 +22,7 @@
   
   @media only screen and (min-device-width: 1024px) {
     .checkout-form {
-      width: 70%;
+      width: 100%;
       color: #ddd;
       background-color: #282e34;
       text-align: center;

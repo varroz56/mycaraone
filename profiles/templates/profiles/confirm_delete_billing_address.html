@@ -1,6 +1,7 @@
 {% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'profiles/styles.css' %}" />
-{% endblock %}{% block subtitle %}Confirm Billing Address Deletion{% endblock %}{% block main_content%} {% include 'includes/navbar.html' %}
+{% endblock %}{% block subtitle %}Confirm Billing Address Deletion{% endblock %}{% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% block main_content%} 
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">are you sure?</p>
 

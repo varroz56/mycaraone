@@ -13,7 +13,8 @@
 ></script>
 <script src="{% static 'profiles/js/googleapi.js' %}"></script>
 
-{% endblock %} {% block subtitle %}Update Billing Address{% endblock %} {% block main_content %} {% include 'includes/navbar.html' %}
+{% endblock %} {% block subtitle %}Update Billing Address{% endblock %}{% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% block main_content%} 
 <div class="mb-4 pb-4 pt-0 mt-0"></div>
 <p class="display-4 text-uppercase text-center pt-4 mt-4">update billing address</p>
 

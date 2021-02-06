@@ -22,13 +22,13 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 4. - [x] Project setup
 5. - [x] Allauth integration
 6. - [x] email service integration
-7. - [] User profile app and user page setup
-8. - [] CRUD on user secondary information
-9. - [] Home app with contact form
-10. - [] Motorhomes app and listings
-11. - [] Booking app and Rent/Booking page
-12. - [] Checkout app and payment page
-13. - [] My Bookings app and bookings page
+7. - [x] User profile app and user page setup
+8. - [x] CRUD on user secondary information
+9. - [x] Home app with contact form
+10. - [x] Motorhomes app and listings
+11. - [x] Booking app and Rent/Booking page
+12. - [x] Checkout app and payment page
+13. - [x] My Bookings app and bookings page
 14.  - [] Deployment to Heroku
 15.  - [] Final testing
 16.  - [] fixing issues
@@ -45,6 +45,11 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 This section shows the ways how users can use the site and what options present for them in order to accomplish their goals.
 The User Stories section have been uploaded to the [UserStories folder](docs/UserStories).
 
+## Deployment
+Created app on [Heroku](https://heroku.com):
+- After registration, from the dashboard New option created new app called mycaraone.
+- set the region to europe
+- 
 
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

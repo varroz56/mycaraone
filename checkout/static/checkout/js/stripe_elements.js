@@ -53,10 +53,10 @@ form.addEventListener("submit", function (ev) {
 
   card.update({ disabled: true });
   $("#submit-button").attr("disabled", true);
-  $("#payment-form").fadeToggle('slow');
+  $("#payment-form").fadeToggle("slow");
   $("#loading-overlay").fadeToggle(70);
- // check card payment
- // with the form details 
+  // check card payment
+  // with the form details
   stripe
     .confirmCardPayment(client_secret, {
       payment_method: {
@@ -90,7 +90,7 @@ form.addEventListener("submit", function (ev) {
         card.update({ disabled: false });
         $("#submit-button").attr("disabled", false);
       } else {
-          // if the payment confirmed, the form can be submitted
+        // if the payment confirmed, the form can be submitted
         if (result.paymentIntent.status === "succeeded") {
           form.submit();
         }

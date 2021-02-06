@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.http import HttpResponse
 from django.conf import settings
-from django.views.decorators import require_POST
+from django.views.decorators.http import require_POST
 from .models import BillingAddress, BookingSummary
 from bookings.models import Booking
 from motorhomes.models import Motorhome
@@ -77,6 +77,8 @@ def CheckoutView(request):
                 booking_total=total,
             )
             bookingsummary.save()
+            # set boking status to paid and confirmed
+            bookingsummary.booking.status_to_paid_and_confirmed()
             request.session['booking_reference'] = bookingsummary.booking_reference
             messages.add_message(request, messages.SUCCESS, 'Checkout Success')
             return redirect(reverse(CheckoutSuccessView))

@@ -14,7 +14,7 @@ from django.contrib import messages
 
 import dateutil
 from dateutil.parser import parse
-
+from django.contrib.auth.decorators import login_required
 # this is to cache checkout data
 
 
@@ -35,22 +35,32 @@ def cache_checkout_data(request):
 
 # A Checkout view
 
-
+@login_required
 def CheckoutView(request):
     """ This view to take payment and confirm booking for customer"""
+    if not request.user.is_authenticated:
+        messages.add_message(
+            request, messages.WARNING, 'Please login or register to complete your booking.')
+        return redirect(reverse('motorhomes'))
+    try:
+        if request.user != request.session['user.pk']:
+            messages.add_message(
+                request, messages.WARNING, 'Your session expired please create a new booking')
+        return redirect(reverse('motorhomes'))
+        # get vars from session
+        mid = request.session['motorhome.pk']
+        days = request.session['days']
+        total = request.session['total']
+        booked_from = request.session['booked_from']
+        booked_until = request.session['booked_until']
+        booking_id = request.session['booking_id']
+    except:
+        messages.add_message(
+            request, messages.WARNING, 'Your session expired please create a new booking')
+        return redirect(reverse('motorhomes'))
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
-    user = request.user
-    # get vars from session
-    mid = request.session['motorhome.pk']
-    uid = request.session['user.pk']
-    days = request.session['days']
-    total = request.session['total']
-    booked_from = request.session['booked_from']
-    booked_until = request.session['booked_until']
-    booking_id = request.session['booking_id']
-
     if request.method == 'POST':
         try:
             # getting checkout data
@@ -64,7 +74,7 @@ def CheckoutView(request):
             country = request.POST.get('country', False),
 
             bookingsummary = BookingSummary(
-                user=user,
+                user=request.session['user.pk'],
                 booking=Booking.objects.get(booking_id=booking_id),
                 full_name=full_name[0],
                 email=email[0],

@@ -49,6 +49,14 @@ The User Stories section have been uploaded to the [UserStories folder](docs/Use
 Created app on [Heroku](https://heroku.com):
 - After registration, from the dashboard New option created new app called mycaraone.
 - set the region to europe
+- installed [dj-database-url](https://pypi.org/project/dj-database-url/) to easily connect to the remote DB.
+- installed [psycopg2](https://pypi.org/project/psycopg2-binary/) as will use postgres DB
+- created requirements.txt file with python3 -m pip freeze >> requirements.txt command to translate the required packages to heroku
+- from Heroku Resources created a free Heroku-Postgres instance
+- set up database connection using the URI provided by Heroku
+- ran migrations as this needs to be set up on the new remote DB
+- with python manage.py showmigrations verified migrations
+- with the loaddata command added the modelinstances
 - 
 
 ## Credits

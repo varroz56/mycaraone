@@ -63,6 +63,9 @@ Created app on [Heroku](https://heroku.com):
 - installed the Heroku CLI (usinng pip)
 - uesd [heroku config:set DISABLE_COLLECTSTATIC=1](https://devcenter.heroku.com/articles/django-assets)
 - added allowed hosts in settings
+- [set up git remote](https://devcenter.heroku.com/articles/git) from the heroku CLI
+- deployed to Heroku
+- [set automatic deployment](https://devcenter.heroku.com/articles/github-integration) when pushed to [Github](https://github.com) from Heroku 
 
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

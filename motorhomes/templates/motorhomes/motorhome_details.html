@@ -13,6 +13,8 @@
 <div class="container-fluid bg-light mx-0 px-3">
   <div class="album py-5 bg-light">
     <div class="row h-100">
+      <a class="w-100 btn btn-success btn-lg py-2 mb-3 text-uppercase" href="{% url 'book_this_motorhome' motorhome.id %}" >Book this Motorhome</a>
+
       <div class="col-md-6 my-auto mx-auto">
         <p class="details-text text-uppercase  py-0 my-0">Nickname: {{motorhome.nickname}}</p><br>
         <p class="details-text text-uppercase  py-0 my-0">Model: {{motorhome.model}}</p><br>
@@ -76,6 +78,8 @@
     </div>
   </div>
 </div>
+<a class="w-100 btn btn-success btn-lg py-2 mb-3 text-uppercase" href="{% url 'book_this_motorhome' motorhome.id %}" >Book this Motorhome</a>
+
 <a class="w-100 btn btn-secondary mt-4 pt-2 pb-2 mb-4" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
 
 {% endblock %}

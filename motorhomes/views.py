@@ -32,7 +32,7 @@ def MotorhomeListView(request):
         # motorhomes = datefilter.qs
         motorhomes = motofilter.qs
 
-       # if only 1 result
+        # if only 1 result
         if motorhomes.count() == 1:
             message = "Found " + str(motorhomes.count()) + " Motorhome"
         # if more than 1 result

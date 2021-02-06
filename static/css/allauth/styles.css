@@ -1,25 +1,40 @@
-.card{
-    width: 50rem;
-    box-shadow: black;
-    border-radius: 22px;
-    
+html,
+body {
+  background-color: #fff;
+  overflow-x: hidden;
 }
 
-a{
-    text-decoration: none;
-    color: grey;
+a {
+  text-decoration: none;
+  color: grey;
 }
 
-a:hover{
-    font-weight: 600;
+a:hover {
+  font-weight: 600;
 }
 
-li{
-    list-style-type: none;
+li {
+  list-style-type: none;
 }
 
 @media only screen and (max-width: 768px) {
-    .card{
-        width: auto;
-    }
+  .card {
+    width: auto;
   }
+}
+
+@media only screen and (max-device-width: 1024px) {
+  .allauth-form {
+    min-width: 100% !important;
+  }
+}
+
+@media only screen and (min-device-width: 1024px) {
+  .allauth-form {
+    width: 100% !important;
+    color: #ddd;
+    background-color: #282e34;
+    padding: 50px 80px;
+    top: 20%;
+  }
+}

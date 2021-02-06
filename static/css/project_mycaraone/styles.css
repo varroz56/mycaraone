@@ -1,3 +1,10 @@
+html,
+body {
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+
 * {
     font-family: 'Yusei Magic', sans-serif;
 }
@@ -7,3 +14,14 @@ img.logo{
     width: auto;
     border-radius: 30;
 }
+
+ul {
+    list-style-type: none;
+}
+
+
+.bg-error{
+    background-color: red !important;
+    font-size: large;
+}
+

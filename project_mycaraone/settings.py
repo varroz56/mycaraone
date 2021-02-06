@@ -45,10 +45,21 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
+
+    # crispy forms
+    # https://django-crispy-forms.readthedocs.io/en/latest/install.html#installing-django-crispy-forms
+    'crispy_forms',
+
+    # django-filter
+    # https://django-filter.readthedocs.io/en/stable/guide/install.html
+    'django_filters',
+
     # own apps
     'profiles',
     'motorhomes',
     'bookings',
+    'checkout',
+    'home',
 
 ]
 
@@ -179,3 +190,15 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+
+# CRISPY FORMS
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# STRIPE
+STRIPE_CURRENCY = 'eur'
+STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
+STRIPE_WH_SECRET = os.environ.get("STRIPE_WH_SECRET")
+# MAPS API
+GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_API_KEY")

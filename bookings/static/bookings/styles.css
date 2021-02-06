@@ -1,9 +1,4 @@
-html,
-body {
-  background-color: #fff;
-  overflow-x: hidden;
-}
-
+/* media queries */
 
 @media only screen and (max-device-width: 1024px) {
   .filter-form,
@@ -29,7 +24,5 @@ body {
     padding: 50px 80px;
     top: 20%;
   }
-
-
 }
 

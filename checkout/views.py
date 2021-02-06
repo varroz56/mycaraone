@@ -15,25 +15,9 @@ from django.contrib import messages
 import dateutil
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
-# this is to cache checkout data
-
-
-def cache_checkout_data(request):
-    try:
-
-        pid = request.POST.get('client_secret').split('_secret')[0]
-        stripe.api_key = settings.STRIPE_SECRET_KEY
-        stripe.PaymentIntent.modify(pid, metadata={
-            'username': request.user,
-        })
-        return HttpResponse(status=200)
-    except Exception as e:
-        messages.add_message(
-            request, messages.ERROR, "Sorry we can't process your payment now. Please try again")
-        return HttpResponse(content=e, status=400)
-
 
 # A Checkout view
+
 
 @login_required
 def CheckoutView(request):

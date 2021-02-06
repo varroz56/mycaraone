@@ -21,6 +21,18 @@ def BookingListView(request):
     return render(request, 'bookings/bookings_list.html', context)
 
 
+# a view to show user's bookings
+
+def MyBookings(request):
+    user = request.user
+    bookings = Booking.objects.filter(booked_by=user)
+
+    context = {
+        'bookings': bookings,
+    }
+    return render(request, 'bookings/my_bookings.html', context)
+
+
 # A view to create Booking
 class BookingView(CreateView):
     model = Booking

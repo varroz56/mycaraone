@@ -1,6 +1,8 @@
 from datetime import date
 from django.db import models
 
+# uuid to create ref for booking
+import uuid
 
 from motorhomes.models import Motorhome
 from django.contrib.auth.models import User
@@ -23,6 +25,9 @@ class Booking(models.Model):
     booked_until = models.DateField(default=date.today)
     booked_on = models.DateTimeField(auto_now_add=True)
 
+    booking_id = models.CharField(
+        max_length=32, null=False, editable=False)
+
     status = models.CharField(
         max_length=50,
         choices=StatusChoices.choices,
@@ -32,6 +37,17 @@ class Booking(models.Model):
 
     class Meta:
         ordering = ['booked_by', 'booked_on']
+
+    def create_booking_ref(self):
+        # create ref using uuid
+        return uuid.uuid4().hex.upper()
+
+    def save(self, *args, **kwargs):
+        # if not set, create booking ref
+        if not self.booking_id:
+            self.booking_id = self.create_booking_ref()
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.id} - {self.booked_vehicle.nickname}"

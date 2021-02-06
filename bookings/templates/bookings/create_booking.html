@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'bookings/styles.css' %}" />
-{% endblock %}{% block main_content %} {% include 'includes/navbar.html' %}
+{% endblock %}{% include 'includes/navbar.html' %}{% block main_content %} 
 <div class="my-5 py-5"></div>
 <div class="container">
     <form method="POST">

@@ -42,12 +42,16 @@ class Booking(models.Model):
         # create ref using uuid
         return uuid.uuid4().hex.upper()
 
+    # set status to paid and confirmed
+    def status_to_paid_and_confirmed(self):
+        self.status = self.StatusChoices.PAIDANDCONFIRMED
+        self.save()
+
     def save(self, *args, **kwargs):
         # if not set, create booking ref
         if not self.booking_id:
             self.booking_id = self.create_booking_ref()
         super().save(*args, **kwargs)
-
 
     def __str__(self):
         return f"{self.id} - {self.booked_vehicle.nickname}"

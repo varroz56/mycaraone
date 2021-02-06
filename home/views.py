@@ -25,9 +25,7 @@ def IndexView(request):
 
 def ContactFormView(request):
     """ Contact Form create a message instance and send a reply email"""
-    print('in view')
     if request.method == 'POST':
-        print('in post')
         form_data = {
             'name': request.POST['name'],
             'email': request.POST['email'],
@@ -73,9 +71,6 @@ def ContactFormView(request):
             except:
                 ref = 'No Reference was created, apologies for the inconvenience'
             try:
-                print('in email section')
-                print(message)
-                print(ref)
                 # as Django send_mail required fields
                 # name
                 name = form_data['name']

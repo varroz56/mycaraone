@@ -1,21 +1,24 @@
-{% extends "base.html" %} 
-{% load static %}
-{% block extra_css %}
-<link rel="stylesheet" href="{% static 'css/allauth/styles.css' %}">
-{% endblock %}
-{% block alluth_content %}
-  <div class="container-fluid my-5 py-1">
-      <div class="row justify-content-md-center pt-5">
-        <div class="col-md-auto">
-          <div class="card">
-            <div class="card-body">
-              <title>{% block head_title %}{% endblock %}</title>
-              {% block extra_head %} {% endblock %} 
-              {% include 'includes/navbar.html' %}
-              {% block body %}
-              {% block content %} {% endblock %} {% endblock %} {% block extra_body %} {% endblock %} {% endblock %}            
-            </div>
-          </div>
-        </div>
+{% extends 'base.html' %} {% load static %}{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/allauth/styles.css' %}" />
+{% endblock %} {% block subtitle %}{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}{% block alluth_content %}
+<div class="mb-5 pb-5 pt-0 mt-0"></div>
+<p class="display-4 text-uppercase text-center mt-2 pt-2">
+  {% block head_title %}{% endblock %}{% block extra_head %} {% endblock %}
+</p>
+
+<div class="album py-5 bg-dark">
+  <a
+    class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
+    href="{% url 'index'%}"
+  >
+    Back to the Home page
+  </a>
+  <div class="container allauth-form">
+    <div class="row">
+      <div class="col-md-12 align-self-center py-2 my-2 text-uppercase text-center">
+        {% block body %} {% block content %} {% endblock %} {% endblock %} {% block extra_body %} {% endblock %}
       </div>
+    </div>
   </div>
+</div>
+{% endblock %}

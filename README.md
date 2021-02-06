@@ -67,5 +67,15 @@ Created app on [Heroku](https://heroku.com):
 - deployed to Heroku
 - [set automatic deployment](https://devcenter.heroku.com/articles/github-integration) when pushed to [Github](https://github.com) from Heroku 
 
+- Set up [amazon aws services](https://console.aws.amazon.com/) to host the project static files
+- created publick bucket, set up [hosting](https://docs.aws.amazon.com/AmazonS3/latest/dev/HowDoIWebsiteConfiguration.html) and will use the bucket's endpoint to access the files.
+- set [CORS permissions](https://docs.aws.amazon.com/AmazonS3/latest/dev/ManageCorsUsing.html)
+- set up bucket policy using aws [policy generator](https://awspolicygen.s3.amazonaws.com/policygen.html) and amend to allow all resources from mycaraone
+- amend ACL to allow list obj for everyone
+- cerated user groups and assigned access policy to it and created user with access keys
+- installed [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) an AWS SDK
+- installed [djang-storages](https://django-storages.readthedocs.io/en/latest/) to help with the storage backend
+- created custom_storages file to configure boto3 and describe the static and media files location
+- in settings, set up aws backend and overridden file path
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

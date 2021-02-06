@@ -76,6 +76,8 @@ Created app on [Heroku](https://heroku.com):
 - installed [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html) an AWS SDK
 - installed [djang-storages](https://django-storages.readthedocs.io/en/latest/) to help with the storage backend
 - created custom_storages file to configure boto3 and describe the static and media files location
-- in settings, set up aws backend and overridden file path
+- in settings, set up aws backend and overridden file path for static and media files
+- enabled collect statics
+- added cache settings
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

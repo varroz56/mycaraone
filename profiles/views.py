@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.views.generic import CreateView
 # A view to show user profile page
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def UserProfileView(request):
     profile = request.user.userprofile
     if BillingAddress.objects.filter(user=request.user).exists():
@@ -23,6 +25,7 @@ def UserProfileView(request):
 # A view to add or update user profile
 
 
+@login_required
 def UserProfileUpdateView(request):
     profile = request.user.userprofile
     form = UserProfileUpdateForm(instance=profile)
@@ -44,7 +47,7 @@ def UserProfileUpdateView(request):
 
 
 # a view to create billing address
-
+@login_required
 def CreateBillingAddressView(request):
     """Billing Address form """
     user = request.user
@@ -94,6 +97,7 @@ def CreateBillingAddressView(request):
     return render(request, template, context)
 
 
+@login_required
 def UpadeBillingAddressView(request):
     """Billing Address form """
     user = request.user
@@ -148,13 +152,13 @@ def UpadeBillingAddressView(request):
 
 
 # a view to confirm billing address deletion
-
+@login_required
 def ConfirmDeleteBillingAddressView(request):
     return render(request, 'profiles/confirm_delete_billing_address.html')
 
 
 # a view to delete billing address
-
+@login_required
 def DeleteBillingAddressView(request):
     user = request.user
 
@@ -164,7 +168,7 @@ def DeleteBillingAddressView(request):
         return redirect(UserProfileView)
 
     try:
-        addr=get_object_or_404(BillingAddress, user=user)
+        addr = get_object_or_404(BillingAddress, user=user)
         addr.delete()
         messages.add_message(request, messages.SUCCESS,
                              'Billing Address has been deleted')

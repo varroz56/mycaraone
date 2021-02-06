@@ -57,7 +57,12 @@ Created app on [Heroku](https://heroku.com):
 - ran migrations as this needs to be set up on the new remote DB
 - with python manage.py showmigrations verified migrations
 - with the loaddata command added the modelinstances
-- 
+- installed [gunicorn](https://pypi.org/project/gunicorn/) as the webserver
+- created Procfile to translate the app to Heroku
+- in Heroku settings added the env vars
+- installed the Heroku CLI (usinng pip)
+- uesd [heroku config:set DISABLE_COLLECTSTATIC=1](https://devcenter.heroku.com/articles/django-assets)
+- added allowed hosts in settings
 
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

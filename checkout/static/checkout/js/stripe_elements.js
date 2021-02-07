@@ -51,32 +51,37 @@ var form = document.getElementById("payment-form");
 form.addEventListener("submit", function (ev) {
   ev.preventDefault();
 
-  card.update({ disabled: true });
-  $("#submit-button").attr("disabled", true);
-  $("#payment-form").fadeToggle("slow");
-  $("#loading-overlay").fadeToggle(70);
-  // check card payment
-  // with the form details
-  stripe
-    .confirmCardPayment(client_secret, {
-      payment_method: {
-        card: card,
-        billing_details: {
-          name: $.trim(form.full_name.value),
-          phone: $.trim(form.phone_number.value),
-          email: $.trim(form.email.value),
-          address: {
-            line1: $.trim(form.street_number.value),
-            line2: $.trim(form.route.value),
-            city: $.trim(form.locality.value),
-            country: $.trim(form.country.value),
+  var form = document.getElementById("payment-form");
+  // if the submit buttion clicked
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+  
+    card.update({ disabled: true });
+    $("#submit-button").attr("disabled", true);
+    $("#payment-form").fadeToggle('slow');
+    $("#loading-overlay").fadeToggle(70);
+   // check card payment
+   // with the form details 
+    stripe
+      .confirmCardPayment(client_secret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: $.trim(form.full_name.value),
+            phone: $.trim(form.phone_number.value),
+            email: $.trim(form.email.value),
+            address: {
+              line1: $.trim(form.street_number.value),
+              line2: $.trim(form.route.value),
+              city: $.trim(form.locality.value),
+              country: $.trim(form.country.value),
+            },
           },
         },
-      },
-    })
-    // if the payment did not go through
-    // error message with icon again
-    .then(function (result) {
+      })
+      // if the payment did not go through
+      // error message with icon again
+      .then(function (result) {
       if (result.error) {
         var errorDiv = document.getElementById("card-errors");
         var html = `

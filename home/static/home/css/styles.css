@@ -15,26 +15,26 @@ html {
   background-size: cover;
 }
 .bgimg-1 {
-  background-image: url("{{MEDIA_URL}}/images/pictures/Baron 560/1800x900/1.jpg");
+  background-image: url("/images/pictures/Baron 560/1800x900/1.jpg");
   min-height: 100%;
 }
 
 .bgimg-2 {
-  background-image: url("{{MEDIA_URL}}/images/pictures/Magnum 582/1800x900/1.jpg");
+  background-image: url("/images/pictures/Magnum 582/1800x900/1.jpg");
   min-height: 400px;
 }
 
 .bgimg-3 {
-  background-image: url("{{MEDIA_URL}}/images/pictures/P2 Relax/1800x900/1.jpg");
+  background-image: url("/images/pictures/P2 Relax/1800x900/1.jpg");
   min-height: 400px;
 }
 
 .bgimg-4 {
-  background-image: url("{{MEDIA_URL}}/images/pictures/R640/1800x900/1.jpg");
+  background-image: url("/images/pictures/R640/1800x900/1.jpg");
   min-height: 400px;
 }
 .bgimg-5 {
-  background-image: url("{{MEDIA_URL}}/images/pictures/Roadcamp/1800x900/1.jpg");
+  background-image: url("/images/pictures/Roadcamp/1800x900/1.jpg");
   min-height: 400px;
 }
 .caption {

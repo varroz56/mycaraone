@@ -71,10 +71,10 @@
           id="phone_number"
           name="phone_number"
           aria-describedby="textHelp"
-          {% if user.userprofile.phone %}
-          value="{{user.userprofile.phone}}"
-          {% else % }
+          {% if userprofile.phone == None %}
           placeholder="Phone number"
+          {% else % }
+          placeholder="{{userprofile.phone}}"
           {% endif %}
           required
         />

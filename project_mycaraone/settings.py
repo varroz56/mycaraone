@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mycaraone.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['mycaraone.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

@@ -29,7 +29,7 @@ def CheckoutView(request):
     try:
         if request.user != request.session['user.pk']:
             messages.add_message(
-                request, messages.WARNING, 'Your session expired please create a new booking')
+                request, messages.WARNING, 'User session expired please create a new booking')
         return redirect(reverse('motorhomes'))
         # get vars from session
         mid = request.session['motorhome.pk']

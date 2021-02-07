@@ -57,7 +57,7 @@ def CreateBillingAddressView(request):
     """Billing Address form """
     user = request.user
     template = 'profiles/create_billing_address.html'
-
+    profile = get_object_or_404(UserProfile, user=user)
     if BillingAddress.objects.filter(user=user):
         messages.add_message(request, messages.ERROR,
                              'Only One Billing Address can be stored on our system')
@@ -66,6 +66,7 @@ def CreateBillingAddressView(request):
     context = {
         'form': form,
         'user': user,
+        'userprofile': profile,
     }
 
     if request.method == 'POST':

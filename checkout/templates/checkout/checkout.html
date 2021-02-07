@@ -14,6 +14,7 @@
 <p class="display-4 text-uppercase text-center pt-3">checkout</p>
 
 <form id="payment-form" action="{% url 'checkout' %}" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
   <div class="album py-5 mx-0 px-0 bg-dark w-100">
     <div class="container">
       <div class="row px-0 mx-0">
@@ -132,7 +133,7 @@
                 />
               </div>
             </fieldset>
-            {% csrf_token %}
+            
             <fieldset class="rounded px-1 py-1 text-uppercase">
               <legend class="fieldset-label">Contact Details:</legend>
               <input
@@ -160,12 +161,12 @@
                 id="phone_number"
                 name="phone_number"
                 aria-describedby="textHelp"
-                {% if user.userprofile.phone %}
-                value="{{user.userprofile.phone}}"
-                {% else %}
-                placeholder="{{user.userprofile.phone}}"
-                required
+                {% if userprofile.phone == None %}
+                placeholder="Phone number"
+                {% else % }
+                placeholder="{{userprofile.phone}}"
                 {% endif %}
+                required
               />
             </fieldset>
             <fieldset class="rounded px-1 py-1 text-uppercase">

@@ -74,6 +74,12 @@ def BookThisMotorhome(request, pk):
         # using dateutils to parse the date passed from the page to django accepted format
         booked_until_parsed = dateutil.parser.parse(booked_until)
         booked_from_parsed = dateutil.parser.parse(booked_from)
+        # should the from date larger then the until or the same, return to this page with warning
+        if booked_from_parsed >= booked_until:
+            messages.add_message(
+                request, messages.WARNING, 'Please check your dates, something odd')
+            return render(request, template, context)
+
         td = booked_until_parsed-booked_from_parsed
         # get days to count the total
         days = td.days
@@ -112,6 +118,5 @@ def BookThisMotorhome(request, pk):
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to create your booking, please try again or contact us')
             return render(request, template, context)
-           
 
     return render(request, template, context)

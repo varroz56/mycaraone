@@ -16,6 +16,23 @@ import dateutil
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 
+# cache most important checkout data
+@require_POST
+def CacheCheckoutDataView(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'booking_id': request.session['booking_id'],
+            'username': request.user,
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return HttpResponse(content=e, status=400)
+
+
 # A Checkout view
 
 

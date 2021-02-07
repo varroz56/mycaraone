@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from checkout.models import BillingAddress
 from .forms import UserProfileUpdateForm, BillingAddressForm
+from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.views.generic import CreateView
@@ -27,13 +28,16 @@ def UserProfileView(request):
 
 @login_required
 def UserProfileUpdateView(request):
-    profile = request.user.userprofile
+    profile = get_object_or_404(UserProfile, user=request.user)
     form = UserProfileUpdateForm(instance=profile)
     if request.method == 'POST':
         form = UserProfileUpdateForm(
             request.POST, request.FILES, instance=profile)
         if form.is_valid():
-            form.save()
+            UserProfile.objects.filter(user=request.user).update(
+                phone_number=form.phone_number,
+                profile_picture=form.profile_picture
+            )
             messages.success(request, 'Profile updated successfully')
             return redirect(reverse(UserProfileView))
         else:

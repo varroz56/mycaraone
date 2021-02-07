@@ -76,7 +76,7 @@ def BookThisMotorhome(request, pk):
         booked_until_parsed = dateutil.parser.parse(booked_until)
         booked_from_parsed = dateutil.parser.parse(booked_from)
         # should the from date larger then the until or the same, return to this page with warning
-        if booked_until_parsed - booked_from_parsed <= 0:
+        if (booked_until_parsed - booked_from_parsed).days < 1:
             messages.add_message(
                 request, messages.WARNING, 'Please check your dates, something wrong')
             return render(request, template, context)

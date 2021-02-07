@@ -22,26 +22,20 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def CheckoutView(request):
     """ This view to take payment and confirm booking for customer"""
-    if not request.user.is_authenticated:
+    user = request.user
+
+    if request.user.id != request.session['user.pk']:
         messages.add_message(
-            request, messages.WARNING, 'Please login or register to complete your booking.')
-        return redirect(reverse('motorhomes'))
-    try:
-        if request.user != request.session['user.pk']:
-            messages.add_message(
-                request, messages.WARNING, 'User session expired please create a new booking')
+            request, messages.WARNING, 'User session expired please create a new booking')
+        print('not this user')
         return redirect(reverse('motorhomes'))
         # get vars from session
-        mid = request.session['motorhome.pk']
-        days = request.session['days']
-        total = request.session['total']
-        booked_from = request.session['booked_from']
-        booked_until = request.session['booked_until']
-        booking_id = request.session['booking_id']
-    except:
-        messages.add_message(
-            request, messages.WARNING, 'Your session expired please create a new booking')
-        return redirect(reverse('motorhomes'))
+    mid = request.session['motorhome.pk']
+    days = request.session['days']
+    total = request.session['total']
+    booked_from = request.session['booked_from']
+    booked_until = request.session['booked_until']
+    booking_id = request.session['booking_id']
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY

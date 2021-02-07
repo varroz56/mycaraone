@@ -21,7 +21,7 @@ var style = {
   },
 };
 // create the card element
-var card = elements.create("card", { style: style });
+var card = elements.create("card", { hidePostalCode: true, style: style});
 // mount on page load
 card.mount("#card-element");
 

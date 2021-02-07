@@ -72,14 +72,19 @@
 
  
     {% endblock %} {% block extra_content %}{% endblock %} {% block postload_js %}
-    <!-- JS to remove Django messages-->
+    <!-- JS to remove Django messages
+      it also checks if it is exists to avoid null value
+    -->
     {% if messages %}
     <script>
+      if(document.body.contains(document.getElementById("django-messages-top"))){
         var message_top = document.getElementById("django-messages-top");
 
         setTimeout(function(){ 
           message_top.style.display = "none";
         }, 3000);
+      }
+
     </script>
     {% endif %}
     {% endblock %}

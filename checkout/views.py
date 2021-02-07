@@ -114,18 +114,18 @@ def CheckoutView(request):
 
         if BillingAddress.objects.filter(user=user):
             billingaddress = BillingAddress.objects.get(user=user)
-        userprofile = UserProfile.objects.get(user=request.user)
-        context = {
-            'days': days,
-            'total': total,
-            'booked_from': dateutil.parser.parse(booked_from),
-            'booked_until': dateutil.parser.parse(booked_until),
-            'billingaddress': billingaddress,
-            'userprofile': userprofile,
-            'motorhome': motorhome,
-            'stripe_public_key': stripe_public_key,
-            'client_secret': intent.client_secret,
-        }
+            userprofile = UserProfile.objects.get(user=request.user)
+            context = {
+                'days': days,
+                'total': total,
+                'booked_from': dateutil.parser.parse(booked_from),
+                'booked_until': dateutil.parser.parse(booked_until),
+                'billingaddress': billingaddress,
+                'userprofile': userprofile,
+                'motorhome': motorhome,
+                'stripe_public_key': stripe_public_key,
+                'client_secret': intent.client_secret,
+            }
         else:
             context = {
                 'days': days,

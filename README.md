@@ -1,13 +1,31 @@
-# mycaraone {#title}
+# mycaraone
 
 An easy to use and responsive app to rent motorhomes.
 
 ## Where Can I see it?
 The source code can be found [here](https://github.com/varroz56/mycaraone) on Github. 
-The Deployed verion is on the [MyCaraOne](http://mycaraone.herokuapp.com) site.
+The Deployed version is on the [MyCaraOne](http://mycaraone.herokuapp.com) site.
+
+# Table Of Content
+
+# Table of contents
+
+- [mycaraone](#mycaraone)
+  - [Where Can I see it?](#where-can-i-see-it)
+- [Table Of Content](#table-of-content)
+- [Table of contents](#table-of-contents)
+  - [UX](#ux)
+    - [User Stories](#user-stories)
+  - [Project milestones](#project-milestones)
+  - [Technologies used](#technologies-used)
+  - [Not implemented but planned features](#not-implemented-but-planned-features)
+  - [Deployment](#deployment)
+  - [Local set up](#local-set-up)
+  - [Testing](#testing)
+  - [Credits](#credits)
 
 
-## UX {#UX}
+## UX
 
 The aim of this project to offer more convenient ways to rent motorhomes. Both the user and motorhome data generalized and stored in a single database. 
 
@@ -157,3 +175,4 @@ The Webhooks part is from the course content from [CodeInstitute](https://codein
 The Stripe js part following the course content but it is customized to the project needs.
 The course content cleared and helped a lot when started to do things in the wrong order
 
+Table of content from https://luciopaiva.com/markdown-toc/

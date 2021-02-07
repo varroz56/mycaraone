@@ -14,7 +14,7 @@
           <div class="card card-body profile-card text-center text-dark">
             <img
               class="profile-picture"
-              src="/media/{{user.userprofile.profile_picture}}"
+              src="{{MEDIA_URL}}{{user.userprofile.profile_picture}}"
               alt="Profile Picture"
             />
             <h4 class="text-align-center">USERNAME: {{user.username}}</h4>

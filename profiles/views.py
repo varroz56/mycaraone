@@ -35,8 +35,8 @@ def UserProfileUpdateView(request):
             request.POST, request.FILES, instance=profile)
         if form.is_valid():
             UserProfile.objects.filter(user=request.user).update(
-                phone_number=form.phone,
-                profile_picture=form.profile_picture
+                phone_number=form.data['phone'],
+                profile_picture=form.data['profile_picture']
             )
             messages.success(request, 'Profile updated successfully')
             return redirect(reverse(UserProfileView))

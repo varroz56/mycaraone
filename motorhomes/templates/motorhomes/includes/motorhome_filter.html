@@ -16,24 +16,12 @@
       <fieldset class="rounded px-3 py-2 text-uppercase inline">
         <div class="row">
           <div class="col-md-6">
-            <span class="fieldset-label">Seats</span>
-            <input
-              type="number"
-              class="form-control py-1 my-1 text-center"
-              id="seats"
-              name="seats"
-              aria-describedby="numberHelp"
-            />
+            <span class="field-label py-2 my-2">Seats</span>
+            <div class="py-2 mt-2" >{{motofilter.form.seats__gte}}</div>
           </div>
           <div class="col-md-6">
-            <span class="fieldset-label">Berths</span>
-            <input
-              type="number"
-              class="form-control py-1 my-1 text-center"
-              id="persons_to_sleep"
-              name="persons_to_sleep"
-              aria-describedby="numberHelp"
-            />
+              <span class="field-label py-2 my-2">Berths</span>
+              <div class="py-2 mt-2">{{motofilter.form.persons_to_sleep__gte}}</div>
           </div>
         </div>
       </fieldset>
@@ -53,7 +41,7 @@
             <span class="field-label py-2 my-2">Rental fee/Day</span>
             <div
               class="py-2 mt-2"
-            >{{motofilter.form.daily_rental_fee__lte}}</p>
+            >{{motofilter.form.daily_rental_fee__lte}}</div>
           </div>
         </div>
         <hr class="bg-black">

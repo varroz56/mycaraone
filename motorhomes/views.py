@@ -30,7 +30,7 @@ def MotorhomeListView(request):
     else:
         # set motorhomes to the date filtered qs
         # motorhomes = datefilter.qs
-        motorhomes = motofilter.qs
+        motorhomes = motofilter.qs.order_by('daily_rental_fee')
 
         # if only 1 result
         if motorhomes.count() == 1:

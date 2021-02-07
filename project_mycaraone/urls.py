@@ -28,6 +28,4 @@ urlpatterns = [
     path('bookings/', include('bookings.urls')),
     path('checkout/', include('checkout.urls')),
 
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

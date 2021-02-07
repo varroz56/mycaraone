@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from checkout.models import BillingAddress
 from .forms import UserProfileUpdateForm, BillingAddressForm
 from django.contrib.auth.models import User
@@ -35,6 +35,7 @@ def UserProfileUpdateView(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'Profile updated successfully')
+            return redirect(reverse(UserProfileView))
         else:
             messages.error(
                 request, 'Unable to update User profile, please try again later')
@@ -88,7 +89,8 @@ def CreateBillingAddressView(request):
             )
             billingaddress.save()
             messages.add_message(request, messages.SUCCESS,
-                                 'Billing Address added, go back to your profile to see the changes')
+                                 'Billing Address added successfully')
+            return redirect(reverse(UserProfileView))
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to save your Billing Address')
@@ -142,7 +144,8 @@ def UpadeBillingAddressView(request):
             )
 
             messages.add_message(request, messages.SUCCESS,
-                                 'Successfully updated your Billing address, go back to your profile to see the changes')
+                                 'Successfully updated your Billing address')
+            return redirect(reverse(UserProfileView))
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to update your Billing Address')

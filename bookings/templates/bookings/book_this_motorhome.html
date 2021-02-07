@@ -13,7 +13,7 @@
 
   <div class="album py-5 bg-dark">
     <a
-      class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
+      class="btn text-center btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
       href="{% url 'motorhome_details' motorhome.id %}"
     >
       Back to the {{motorhome.nickname}} detailed page
@@ -94,7 +94,7 @@
                     </fieldset>
                     <div class="card-text mb-2 ">
                       <input
-                        class="btn btn-success w-100 text-dark"
+                        class="btn text-center text-uppercase btn-success w-100 text-dark"
                         type="submit"
                         name="submit"
                         value="Book Motorhome"
@@ -109,7 +109,7 @@
     </div>
     <div class="card-text w-100">
       <a
-        class="btn btn-secondary w-100 my-3 py-3 text-dark text-uppercase"
+        class="btn text-center btn-secondary w-100 my-3 py-3 text-dark text-uppercase"
         href="{% url 'motorhome_details' motorhome.id %}"
         >Back to the {{motorhome.nickname}} detailed page</a
       >

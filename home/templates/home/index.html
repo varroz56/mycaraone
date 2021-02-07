@@ -2,10 +2,16 @@
 <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
 {% endblock %} {% block subtitle %}Homepage{% endblock %} {% block navbar %} {% include 'includes/navbar.html' %} {% endblock %} {% block main_content %}
 <div class="bgimg-1" style="background-image: url({{MEDIA_URL}}images/home/bg1.jpg);">
+  {% if user.is_authenticated %}
+  <div class="caption nec text-center text-uppercase">Wlecome to MyCaraOne <br>{% if motorhomes %} <a class="nav-item" href="{% url 'book_this_motorhome/{{motorhomes[0].id}}' %}">Book now the {{motorhomes[0]}}!</a> <br>Or 
+    <a class="nav-item" href="{% url 'mybookings' %}">Check your existing bookings</a>
+  </div>
+  {% else %}
   <div class="caption nec text-center text-uppercase">Wlecome to MyCaraOne <br> <a class="nav-item" href="{% url 'account_login' %}">Sign In</a> Or 
     <a class="nav-item" href="{% url 'account_signup' %}">Sign Up</a>
     <br> to book your motorhome in minutes
   </div>
+  {% endif %}
 </div>
 
   <div class="nec text-center">
@@ -49,7 +55,7 @@
         {{contactform.message|as_crispy_field}}
       </fieldset>
       <div class="card-footer">
-        <button type="submit" class="btn btn-secondary w-100 by-2 my-2">Submit</button>
+        <button type="submit" class="btn btn-secondary w-100 by-2 my-2 text-uppercase">Send Message</button>
       </div>
     </form>
   </div>

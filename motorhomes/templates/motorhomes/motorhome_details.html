@@ -3,7 +3,7 @@
 {% endblock %} {% block subtitle %}{{motorhome.nickname}} {% endblock %}{% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
 {% block main_content %} 
 <div class="my-2 py-3"></div>
-<a class="w-100 btn btn-secondary mt-4" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
+<a class="w-100 btn btn-secondary mt-4 text-uppercase" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
 <img
   class="cover-image img-fluid"
   src="{{MEDIA_URL}}{{motorhome.picture1}}"
@@ -80,6 +80,6 @@
 </div>
 <a class="w-100 btn btn-success btn-lg py-2 mb-3 text-uppercase" href="{% url 'book_this_motorhome' motorhome.id %}" >Book this Motorhome</a>
 
-<a class="w-100 btn btn-secondary mt-4 pt-2 pb-2 mb-4" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
+<a class="w-100 btn btn-secondary mt-4 pt-2 pb-2 mb-4 text-uppercase" href="{% url 'motorhomes' %}" >Back to the Motorhome Listing</a>
 
 {% endblock %}

@@ -161,11 +161,7 @@
                 id="phone_number"
                 name="phone_number"
                 aria-describedby="textHelp"
-                {% if user.userprofile.phone == None %}
                 placeholder="Phone number"
-                {% else % }
-                placeholder="{{userprofile.phone}}"
-                {% endif %}
                 required
               />
             </fieldset>
@@ -276,7 +272,7 @@
               <div id="card-errors" role="alert" class="text-center"></div>
 
             </fieldset>
-            <button id="submit-button" class="btn btn-success w-100">Pay</button>
+            <button id="submit-button" class="btn btn-success w-100 by-3 my3 text-uppercase">Pay</button>
           </div>
         </div>
       </div>

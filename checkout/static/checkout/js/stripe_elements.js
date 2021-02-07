@@ -61,14 +61,14 @@ form.addEventListener('submit', function(ev) {
     // define postData form the csrf token and the client secret
     var postData = {
         'csrfmiddlewaretoken': csrfToken,
-        'client_secret': clientSecret,
+        'client_secret': client_secret,
     };
     //define url for the post
     var url = '/checkout/cache_checkout_data/';
     // post data and awaitng for confirmation, that the intent was updated successfully
     $.post(url, postData).done(function () {
       //stripe confirm payment metyhod adding billing address
-        stripe.confirmCardPayment(clientSecret, {
+        stripe.confirmCardPayment(client_secret, {
             payment_method: {
                 card: card,
                 billing_details: {

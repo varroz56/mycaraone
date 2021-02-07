@@ -1,7 +1,7 @@
 {% extends 'base.html' %}{% load static %}{% load crispy_forms_tags %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'home/css/styles.css' %}" />
 {% endblock %} {% block subtitle %}Homepage{% endblock %} {% block navbar %} {% include 'includes/navbar.html' %} {% endblock %} {% block main_content %}
-<div class="bgimg-1">
+<div class="bgimg-1" style="background-image: url({{MEDIA_URL}}images/home/bg1.jpg);">
   <div class="caption nec text-center text-uppercase">Wlecome to MyCaraOne <br> <a class="nav-item" href="{% url 'account_login' %}">Sign In</a> Or 
     <a class="nav-item" href="{% url 'account_signup' %}">Sign Up</a>
     <br> to book your motorhome in minutes
@@ -15,7 +15,7 @@
     </p>
   </div>
 
-  <div class="bgimg-2">
+  <div class="bgimg-2" style="background-image: url({{MEDIA_URL}}images/home/bg2.jpg);">
     <div class="caption">
       <span class="border"><a class="nav-item" href="{% url 'motorhomes' %}">Motorhomes</a></span>
     </div>

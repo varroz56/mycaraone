@@ -23,20 +23,35 @@
       <div class="card-footer">
         <div class="card-text">
           <input
-            class="btn btn-success"
+            class="btn btn-success w-100 py-2 my-2"
             type="submit"
             name="Update Information"
             value="Update"
           />
         </div>
         <div class="card-text d-flex">
-          <a class="btn btn-secondary align-self-end" href="{% url 'myprofile' %}"
+          <a class="btn btn-secondary w-100 py-2 my-2" href="{% url 'myprofile' %}"
             >Back to the Profile Page</a
           >
         </div>
       </div>
     </form>
   </div>
-
-  {% endblock %}
 </div>
+{% endblock %}
+{% block postload_js %}
+<script>
+  var clearOption = document.getElementById("profile_picture-clear_id");
+  clearOption.remove();
+  var labelClearOption = document.getElementsByTagName('label');
+  var i = 0;
+  while (i < labelClearOption.length){
+    console.log(labelClearOption.length);
+    var attr = labelClearOption[i].getAttribute('for');
+    if (attr == 'profile_picture-clear_id'){
+      labelClearOption[i].remove();
+    }
+    i+=1;
+  }
+</script>
+{% endblock %}

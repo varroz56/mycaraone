@@ -5,6 +5,7 @@ from django.views.decorators.http import require_POST
 from .models import BillingAddress, BookingSummary
 from bookings.models import Booking
 from motorhomes.models import Motorhome
+from profiles.models import UserProfile
 # https://stripe.com/docs/payments/accept-a-payment?integration=elements
 # https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/server/python/server.py#L43-L46
 # CodeInstitute checkout app
@@ -17,6 +18,8 @@ from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 
 # cache most important checkout data
+
+
 @require_POST
 def CacheCheckoutDataView(request):
     try:
@@ -111,17 +114,18 @@ def CheckoutView(request):
 
         if BillingAddress.objects.filter(user=user):
             billingaddress = BillingAddress.objects.get(user=user)
-
-            context = {
-                'days': days,
-                'total': total,
-                'booked_from': dateutil.parser.parse(booked_from),
-                'booked_until': dateutil.parser.parse(booked_until),
-                'billingaddress': billingaddress,
-                'motorhome': motorhome,
-                'stripe_public_key': stripe_public_key,
-                'client_secret': intent.client_secret,
-            }
+        userprofile = UserProfile.objects.get(user=request.user)
+        context = {
+            'days': days,
+            'total': total,
+            'booked_from': dateutil.parser.parse(booked_from),
+            'booked_until': dateutil.parser.parse(booked_until),
+            'billingaddress': billingaddress,
+            'userprofile': userprofile,
+            'motorhome': motorhome,
+            'stripe_public_key': stripe_public_key,
+            'client_secret': intent.client_secret,
+        }
         else:
             context = {
                 'days': days,
@@ -129,6 +133,7 @@ def CheckoutView(request):
                 'booked_from': dateutil.parser.parse(booked_from),
                 'booked_until': dateutil.parser.parse(booked_until),
                 'billingaddress': None,
+                'userprofile': userprofile,
                 'motorhome': motorhome,
                 'stripe_public_key': stripe_public_key,
                 'client_secret': intent.client_secret,

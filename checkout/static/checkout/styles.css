@@ -3,7 +3,7 @@
   border-bottom: none !important;
 }
 
-@media only screen and (max-device-width: 1024px) {
+@media only screen and (max-width: 1024px) {
   .checkout-form,
   .checkout-success-form{
     min-width: 100% !important;
@@ -23,7 +23,7 @@
   }
 }
 
-@media only screen and (min-device-width: 1024px) {
+@media only screen and (min-width: 1024px) {
   .checkout-form,
   .checkout-success-form {
     color: #ddd;

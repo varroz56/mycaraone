@@ -9,13 +9,13 @@ body {
   max-width: 250px;
 }
 
-@media only screen and (max-device-width: 1024px) {
+@media only screen and (max-width: 1024px) {
   .profile-form {
     min-width: 100% !important;
   }
 }
 
-@media only screen and (min-device-width: 1024px) {
+@media only screen and (min-width: 1024px) {
   .profile-form {
     left: 15%;
     width: 70% !important;

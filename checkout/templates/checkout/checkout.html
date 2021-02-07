@@ -161,7 +161,7 @@
                 id="phone_number"
                 name="phone_number"
                 aria-describedby="textHelp"
-                {% if userprofile.phone == None %}
+                {% if user.userprofile.phone == None %}
                 placeholder="Phone number"
                 {% else % }
                 placeholder="{{userprofile.phone}}"

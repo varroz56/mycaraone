@@ -12,7 +12,7 @@
 <div class="mt-3 pt3"></div>
 <div class="album py-5 bg-dark">
   <div class="card profile-form">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <fieldset class="rounded px-3 py-2 text-uppercase">
         {{form.phone|as_crispy_field}}

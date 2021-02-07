@@ -15,6 +15,8 @@ def IndexView(request):
     """ 
     The index view with contact Form create a message instance and send a reply email"""
     motorhomes = Motorhome.objects.all()
+    if motorhomes:
+        motorhome=motorhomes.first()
     form = ContactMessageForm()
     context = {
         'motorhomes': motorhomes,
@@ -28,6 +30,7 @@ def IndexView(request):
         context = {
             'motorhomes': motorhomes,
             'contactform': form,
+            'motorhome':motorhome,
         }
         template = 'home/index.html'
         form_data = {

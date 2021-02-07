@@ -52,7 +52,7 @@ form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
-    $('#payment-form').fadeToggle(slow);
+    $('#payment-form').fadeToggle("slow");
     $('#loading-overlay').fadeToggle(70);
  
  

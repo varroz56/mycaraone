@@ -10,23 +10,12 @@ from django.urls import reverse_lazy
 
 from .models import ContactUsMessage
 
-# index view for the landing page
-
 
 def IndexView(request):
+    """ 
+    The index view with contact Form create a message instance and send a reply email"""
     motorhomes = Motorhome.objects.all()
-    form = ContactMessageForm
-    context = {
-        'motorhomes': motorhomes,
-        'contactform': form,
-    }
-    return render(request, 'home/index.html', context)
-
-
-def ContactFormView(request):
-    """ Contact Form create a message instance and send a reply email"""
-    motorhomes = Motorhome.objects.all()
-    form = ContactMessageForm
+    form = ContactMessageForm()
     context = {
         'motorhomes': motorhomes,
         'contactform': form,
@@ -34,6 +23,13 @@ def ContactFormView(request):
     template = 'home/index.html'
 
     if request.method == 'POST':
+        motorhomes = Motorhome.objects.all()
+        form = ContactMessageForm()
+        context = {
+            'motorhomes': motorhomes,
+            'contactform': form,
+        }
+        template = 'home/index.html'
         form_data = {
             'name': request.POST['name'],
             'email': request.POST['email'],
@@ -69,9 +65,8 @@ def ContactFormView(request):
                     num += 1
                 # set ref from the required tags
                 ref = prefix + mid + end
-
-                cus = ContactUsMessage.objects.filter(
-                    id=message.id).update(reference=ref)
+                ContactUsMessage.objects.filter(
+                    pk=message.id).update(reference=ref)
             except:
                 ref = 'No Reference was created, apologies for the inconvenience'
             try:
@@ -96,14 +91,11 @@ def ContactFormView(request):
                 )
                 # message sent successfully
                 messages.add_message(request, messages.SUCCESS,
-                                     'We have saved your message, please check your email for our response')
-                return render(request, template, context)
+                                     'Thank you for your message, please check your emails')
             except:
                 messages.add_message(request, messages.ERROR,
                                      'Sorry, We were unable to send you a response')
-                return render(request, template, context)
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to save your message')
-            return render(request, template, context)
     return render(request, template, context)

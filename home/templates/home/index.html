@@ -21,6 +21,14 @@
     </div>
   </div>
   <div class="card contact-form">
+    <!--styled django message-->
+    <div id="django-messages-form-results" class="my-2 py2 text-center text-uppercase">
+      <ul class="messages list-group">
+          {% for message in messages %}
+          <li{% if message.tags %} class="bg-{{ message.tags }} py-2 text-dark"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+    </div>
     <div class="text-ceter text-uppercase text-black display-5">Contact Us</div>
     <form action="" method="POST">
       {% csrf_token %}
@@ -41,7 +49,7 @@
         {{contactform.message|as_crispy_field}}
       </fieldset>
       <div class="card-footer">
-        <button type="submit" class="btn btn-secondary">Submit</button>
+        <button type="submit" class="btn btn-secondary w-100 by-2 my-2">Submit</button>
       </div>
     </form>
   </div>

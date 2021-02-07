@@ -104,12 +104,14 @@ def BookThisMotorhome(request, pk):
             # uopdate userprofile instance with the last booking ref
             UserProfile.objects.filter(pk=user.id).update(
                 last_booking_ref=booking.booking_id)
+
+            return redirect(reverse('checkout'), context)
             messages.add_message(request, messages.SUCCESS,
                                  "Your Booking has been created, let's go to checkout")
-            return redirect(reverse('checkout'), context)
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to create your booking, please try again or contact us')
             return render(request, template, context)
+           
 
     return render(request, template, context)

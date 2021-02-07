@@ -29,7 +29,7 @@ The aim of this project to offer more convenient ways to rent motorhomes. Both t
 11. - [x] Booking app and Rent/Booking page
 12. - [x] Checkout app and payment page
 13. - [x] My Bookings app and bookings page
-14.  - [] Deployment to Heroku
+14.  - [x] Deployment to Heroku
 15.  - [] Final testing
 16.  - [] fixing issues
 17.  - [] Project submission 
@@ -79,5 +79,11 @@ Created app on [Heroku](https://heroku.com):
 - in settings, set up aws backend and overridden file path for static and media files
 - enabled collect statics
 - added cache settings
+
+- when deployed to Heroku, started testing the deployed project and found that 
+
+
+## Testing
+The project was tested since the start of the project, however automated testing only applied at the end. A separate document was created to describe the test methods and results.
 ## Credits
 Default user profile pictures downloaded from [Flaticon](https://www.flaticon.com/free-icons/profile)

@@ -7,7 +7,7 @@ class ContactMessageForm(ModelForm):
         set placeholder and customzie form fields further """
     class Meta:
         model = ContactUsMessage
-        fields = '__all__'
+        exclude = ['reference']
 
     def __init__(self, *args, **kwargs):
 

@@ -25,6 +25,14 @@ def IndexView(request):
 
 def ContactFormView(request):
     """ Contact Form create a message instance and send a reply email"""
+    motorhomes = Motorhome.objects.all()
+    form = ContactMessageForm
+    context = {
+        'motorhomes': motorhomes,
+        'contactform': form,
+    }
+    template = 'home/index.html'
+
     if request.method == 'POST':
         form_data = {
             'name': request.POST['name'],
@@ -32,13 +40,6 @@ def ContactFormView(request):
             'subject': request.POST['subject'],
             'message': request.POST['message'],
         }
-        motorhomes = Motorhome.objects.all()
-        form = ContactMessageForm
-        context = {
-            'motorhomes': motorhomes,
-            'contactform': form,
-        }
-        template = 'home/index.html'
         try:
             # Create and save new ContactUsMessage instance
             message = ContactUsMessage(
@@ -68,6 +69,9 @@ def ContactFormView(request):
                     num += 1
                 # set ref from the required tags
                 ref = prefix + mid + end
+
+                cus = ContactUsMessage.objects.filter(
+                    id=message.id).update(reference=ref)
             except:
                 ref = 'No Reference was created, apologies for the inconvenience'
             try:

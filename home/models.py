@@ -13,6 +13,7 @@ class ContactUsMessage(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=100)
     message = models.TextField()
+    reference = models.CharField(max_length=10, blank=True, null=True)
 
     def __str__(self):
         return self.email

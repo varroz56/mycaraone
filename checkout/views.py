@@ -42,14 +42,16 @@ def CheckoutView(request):
     if request.method == 'POST':
         try:
             # getting checkout data
-            full_name = request.POST.get('full_name', False),
-            email = request.POST.get('email', False),
-            phone_number = request.POST.get('phone_number', False),
-            address_line1 = request.POST.get('street_number', False),
-            address_line2 = request.POST.get('route', False),
-            postcode = request.POST.get('postal_code', False),
-            city = request.POST.get('locality', False),
-            country = request.POST.get('country', False),
+            full_name = request.POST.get('full_name', False)
+            email = request.POST.get('email', False)
+            phone_number = request.POST.get('phone_number', False)
+            address_line1 = request.POST.get('street_number', False)
+            address_line2 = request.POST.get('route', False)
+            postcode = request.POST.get('postal_code', False)
+            city = request.POST.get('locality', False)
+            country = request.POST.get('country', False)
+            # accessing pid
+            pid = request.POST.get('client_secret').split('_secret')[0]
 
             bookingsummary = BookingSummary(
                 user=request.session['user.pk'],
@@ -63,6 +65,7 @@ def CheckoutView(request):
                 city=city[0],
                 country=country[0],
                 booking_total=total,
+                stripe_pid=pid,
             )
             bookingsummary.save()
             # set boking status to paid and confirmed

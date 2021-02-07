@@ -68,6 +68,7 @@ def BookThisMotorhome(request, pk):
         'form': form,
     }
     if request.method == 'POST':
+        request.session['user.pk'] = user.pk
         # get the dates from the form
         booked_from = request.POST.get('start_date', False)
         booked_until = request.POST.get('end_date', False)
@@ -75,9 +76,9 @@ def BookThisMotorhome(request, pk):
         booked_until_parsed = dateutil.parser.parse(booked_until)
         booked_from_parsed = dateutil.parser.parse(booked_from)
         # should the from date larger then the until or the same, return to this page with warning
-        if booked_from_parsed >= booked_until:
+        if booked_until_parsed - booked_from_parsed <= 0:
             messages.add_message(
-                request, messages.WARNING, 'Please check your dates, something odd')
+                request, messages.WARNING, 'Please check your dates, something wrong')
             return render(request, template, context)
 
         td = booked_until_parsed-booked_from_parsed
@@ -101,7 +102,7 @@ def BookThisMotorhome(request, pk):
             # add booking information to session
             # so it can be accessed later on
             request.session['motorhome.pk'] = pk
-            request.session['user.pk'] = user.pk
+            
             request.session['days'] = days
             request.session['total'] = total
             request.session['booked_from'] = booked_from

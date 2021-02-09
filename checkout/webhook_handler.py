@@ -62,7 +62,7 @@ class StripeWH_Handler:
                 attempt += 1
                 time.sleep(1)
         # The bookingsummary exists 
-        if order_exists:
+        if bookingsummary_exists:
             return HttpResponse(
                 content=f'Webhook received: {event["type"]} | SUCCESS: Bookingsummary already saved, the payment verified',
                 status=200)
@@ -87,7 +87,7 @@ class StripeWH_Handler:
                     bookingsummary.delete()
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
-                    status=500)
+                    status=404)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created bookingsummary in webhook',
             status=200)

@@ -21,7 +21,7 @@ var style = {
   },
 };
 // create the card element
-var card = elements.create("card", { hidePostalCode: true, style: style });
+var card = elements.create("card", { style: style });
 // mount on page load
 card.mount("#card-element");
 
@@ -44,9 +44,10 @@ card.addEventListener("change", function (event) {
   }
 });
 
-// get the form object by id
+// Handle form submit
+// create form variable to handle events on it
 var form = document.getElementById("payment-form");
-// awaitng to submit the form
+// if the submit buttion clicked
 form.addEventListener("submit", function (ev) {
   // disable card update, form fade out, start the spinner
   ev.preventDefault();

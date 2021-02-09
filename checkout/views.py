@@ -24,54 +24,61 @@ from django.contrib.auth.decorators import login_required
 def CacheCheckoutDataView(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
+        print('cache checout data')
+        print(pid)
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        print(request.session['booking_id'])
         stripe.PaymentIntent.modify(pid, metadata={
             'booking_id': request.session['booking_id'],
             'username': request.user,
         })
+        print('succeed')
         return HttpResponse(status=200)
     except Exception as e:
+        print(e)
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
 
 
-# A Checkout view
-
-
 @login_required
 def CheckoutView(request):
     """ This view to take payment and confirm booking for customer"""
-    user = request.user
-
-    if request.user.id != request.session['user.pk']:
+    if not request.user.is_authenticated:
         messages.add_message(
-            request, messages.WARNING, 'User session expired please create a new booking')
-        print('not this user')
+            request, messages.WARNING, 'Please login or register to complete your booking.')
         return redirect(reverse('motorhomes'))
+    try:
+        if request.user.id != request.session['user.pk']:
+            messages.add_message(
+                request, messages.WARNING, 'Your session expired please create a new booking')
+            return redirect(reverse('motorhomes'))
         # get vars from session
-    mid = request.session['motorhome.pk']
-    days = request.session['days']
-    total = request.session['total']
-    booked_from = request.session['booked_from']
-    booked_until = request.session['booked_until']
-    booking_id = request.session['booking_id']
+        mid = request.session['motorhome.pk']
+        days = request.session['days']
+        total = request.session['total']
+        print(total)
+        booked_from = request.session['booked_from']
+        booked_until = request.session['booked_until']
+        booking_id = request.session['booking_id']
+    except:
+        messages.add_message(
+            request, messages.WARNING, 'Your session expired please create a new booking')
+        return redirect(reverse('motorhomes'))
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
     if request.method == 'POST':
         try:
             # getting checkout data
-            full_name = request.POST.get('full_name', False)
-            email = request.POST.get('email', False)
-            phone_number = request.POST.get('phone_number', False)
-            address_line1 = request.POST.get('street_number', False)
-            address_line2 = request.POST.get('route', False)
-            postcode = request.POST.get('postal_code', False)
-            city = request.POST.get('locality', False)
-            country = request.POST.get('country', False)
-            # accessing pid
-            pid = request.POST.get('client_secret').split('_secret')[0]
+            full_name = request.POST.get('full_name', False),
+            email = request.POST.get('email', False),
+            phone_number = request.POST.get('phone_number', False),
+            address_line1 = request.POST.get('street_number', False),
+            address_line2 = request.POST.get('route', False),
+            postcode = request.POST.get('postal_code', False),
+            city = request.POST.get('locality', False),
+            country = request.POST.get('country', False),
 
             bookingsummary = BookingSummary(
                 user=request.session['user.pk'],
@@ -85,7 +92,6 @@ def CheckoutView(request):
                 city=city[0],
                 country=country[0],
                 booking_total=total,
-                stripe_pid=pid,
             )
             bookingsummary.save()
             # set boking status to paid and confirmed
@@ -109,19 +115,17 @@ def CheckoutView(request):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-
         motorhome = Motorhome.objects.get(pk=mid)
 
-        if BillingAddress.objects.filter(user=user):
-            billingaddress = BillingAddress.objects.get(user=user)
-            userprofile = UserProfile.objects.get(user=request.user)
+        if BillingAddress.objects.filter(user=request.user):
+            billingaddress = BillingAddress.objects.get(user=request.user)
+
             context = {
                 'days': days,
                 'total': total,
                 'booked_from': dateutil.parser.parse(booked_from),
                 'booked_until': dateutil.parser.parse(booked_until),
                 'billingaddress': billingaddress,
-                'userprofile': userprofile,
                 'motorhome': motorhome,
                 'stripe_public_key': stripe_public_key,
                 'client_secret': intent.client_secret,
@@ -133,10 +137,9 @@ def CheckoutView(request):
                 'booked_from': dateutil.parser.parse(booked_from),
                 'booked_until': dateutil.parser.parse(booked_until),
                 'billingaddress': None,
-                'userprofile': userprofile,
                 'motorhome': motorhome,
                 'stripe_public_key': stripe_public_key,
-                'client_secret': intent.client_secret,
+                'client_secret': stripe.api_key,
             }
     return render(request, 'checkout/checkout.html', context)
 
@@ -150,5 +153,5 @@ def CheckoutSuccessView(request):
         'bookingsummary': bookingsummary
     }
     messages.add_message(
-        request, messages.SUCCESS, 'Thank you, Your Booking has been confirmed and paid')
+        request, messages.SUCCESS, 'Thank you, Your Booking has been paid and confirmed')
     return render(request, 'checkout/checkout_success.html', context)

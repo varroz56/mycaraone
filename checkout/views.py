@@ -30,7 +30,7 @@ def CacheCheckoutDataView(request):
         print(request.session['booking_id'])
         stripe.PaymentIntent.modify(pid, metadata={
             'booking_id': request.session['booking_id'],
-            'username': request.user,
+            'user': request.user,
         })
         print('succeed')
         return HttpResponse(status=200)
@@ -57,7 +57,6 @@ def CheckoutView(request):
         mid = request.session['motorhome.pk']
         days = request.session['days']
         total = request.session['total']
-        print(total)
         booked_from = request.session['booked_from']
         booked_until = request.session['booked_until']
         booking_id = request.session['booking_id']
@@ -68,6 +67,43 @@ def CheckoutView(request):
     # stripe api keys
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    # using stripe inbuilt methods
+    # stripe total
+    stripe_total = (int(total)*100)
+    stripe.api_key = stripe_secret_key
+    # creating payment intent
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+    motorhome = Motorhome.objects.get(pk=mid)
+
+    if BillingAddress.objects.filter(user=request.user):
+        billingaddress = BillingAddress.objects.get(user=request.user)
+
+        context = {
+            'days': days,
+            'total': total,
+            'booked_from': dateutil.parser.parse(booked_from),
+            'booked_until': dateutil.parser.parse(booked_until),
+            'billingaddress': billingaddress,
+            'motorhome': motorhome,
+            'stripe_public_key': stripe_public_key,
+            'client_secret': intent.client_secret,
+        }
+    else:
+        context = {
+            'days': days,
+            'total': total,
+            'booked_from': dateutil.parser.parse(booked_from),
+            'booked_until': dateutil.parser.parse(booked_until),
+            'billingaddress': None,
+            'motorhome': motorhome,
+            'stripe_public_key': stripe_public_key,
+            'client_secret': stripe.api_key,
+        }
+
     if request.method == 'POST':
         try:
             # getting checkout data
@@ -79,9 +115,20 @@ def CheckoutView(request):
             postcode = request.POST.get('postal_code', False),
             city = request.POST.get('locality', False),
             country = request.POST.get('country', False),
-
+            print(request.session['user.pk'])
+            print(Booking.objects.get(booking_id=booking_id))
+            print(full_name[0])
+            print(email[0])
+            print(phone_number[0])
+            print(address_line1[0])
+            print(address_line2[0])
+            print(postcode[0])
+            print(city[0])
+            print(country[0])
+            print(total)
+            print(intent.id)
             bookingsummary = BookingSummary(
-                user=request.session['user.pk'],
+                user=request.user,
                 booking=Booking.objects.get(booking_id=booking_id),
                 full_name=full_name[0],
                 email=email[0],
@@ -92,8 +139,11 @@ def CheckoutView(request):
                 city=city[0],
                 country=country[0],
                 booking_total=total,
+                stripe_pid=intent.id
             )
             bookingsummary.save()
+            print(bookingsummary)
+            print(bookingsummary.booking_reference)
             # set boking status to paid and confirmed
             bookingsummary.booking.status_to_paid_and_confirmed()
             request.session['booking_reference'] = bookingsummary.booking_reference
@@ -104,43 +154,7 @@ def CheckoutView(request):
             messages.add_message(
                 request, messages.ERROR, 'Something went wrong, please try again or contact us')
         return redirect(reverse(CheckoutView))
-    else:
 
-        # using stripe inbuilt methods
-        # stripe total
-        stripe_total = (int(total)*100)
-        stripe.api_key = stripe_secret_key
-        # creating payment intent
-        intent = stripe.PaymentIntent.create(
-            amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY,
-        )
-        motorhome = Motorhome.objects.get(pk=mid)
-
-        if BillingAddress.objects.filter(user=request.user):
-            billingaddress = BillingAddress.objects.get(user=request.user)
-
-            context = {
-                'days': days,
-                'total': total,
-                'booked_from': dateutil.parser.parse(booked_from),
-                'booked_until': dateutil.parser.parse(booked_until),
-                'billingaddress': billingaddress,
-                'motorhome': motorhome,
-                'stripe_public_key': stripe_public_key,
-                'client_secret': intent.client_secret,
-            }
-        else:
-            context = {
-                'days': days,
-                'total': total,
-                'booked_from': dateutil.parser.parse(booked_from),
-                'booked_until': dateutil.parser.parse(booked_until),
-                'billingaddress': None,
-                'motorhome': motorhome,
-                'stripe_public_key': stripe_public_key,
-                'client_secret': stripe.api_key,
-            }
     return render(request, 'checkout/checkout.html', context)
 
 

@@ -55,11 +55,3 @@
   </div>
 </div>
 
-  <!--To set the default date value in the filter form-->
-  {% block postload_js %}
-  <script>
-    document.querySelector("#start_date").valueAsDate = new Date();
-    document.querySelector("#end_date").valueAsDate = new Date();
-  </script>
-{% endblock %}
-

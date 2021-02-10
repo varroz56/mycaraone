@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 
 from .models import BookingSummary
-
+from bookings.models import Booking
 import time
 
 
@@ -68,8 +68,12 @@ class StripeWH_Handler:
                 status=200)
         else:
             bookingsummary = None
+            user = intent.metadata.user
+            booking = Booking.objects.get(id=intent.metadata.booking_id)
             try:
                 bookingsummary = BookingSummary.objects.create(
+                    user=user,
+                    booking=booking,
                     full_name=shipping_details.name,
                     email=billing_details.email,
                     phone_number=shipping_details.phone,

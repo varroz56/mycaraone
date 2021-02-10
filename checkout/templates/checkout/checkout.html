@@ -1,6 +1,6 @@
 {% extends 'base.html' %}{% load static %} {% block extra_css %}
 <link rel="stylesheet" href="{% static 'checkout/styles.css' %}" />
-{% endblock %}{% if not billingaddress %} {% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTxRYC0P7NAbBCPuXnCdQav79gAg1hO2Q&callback=initAutocomplete&libraries=places&v=weekly"
@@ -8,7 +8,7 @@
 ></script>
 <script src="{% static 'checkout/js/googleapi.js' %}"></script>
 
-{% endblock %} {% endblock %}{% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
+{% endblock %}{% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
 {% block main_content %} 
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">checkout</p>
@@ -78,7 +78,7 @@
             <div class="card-title my-2 py-2 text-center bg-light">
               <p class="py-2 my-2">billing address</p>
             </div>
-            {% if billingaddress %}       
+            {% if not billingaddress == None %}       
             <fieldset class="rounded px-1 py-1 text-uppercase">
               <legend class="fieldset-label text-light">Contact Details:</legend>
               <label for="full_name" class="text-uppsercase text-center text-light">Full Name</label>

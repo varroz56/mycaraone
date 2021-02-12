@@ -24,18 +24,15 @@ from django.contrib.auth.decorators import login_required
 def CacheCheckoutDataView(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
-        print('cache checout data')
-        print(pid)
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        print(request.session['booking_id'])
         stripe.PaymentIntent.modify(pid, metadata={
             'booking_id': request.session['booking_id'],
             'user': request.user,
         })
-        print('succeed')
+        print(request.session['booking_id'])
+        print(request.user)
         return HttpResponse(status=200)
     except Exception as e:
-        print(e)
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
@@ -81,23 +78,28 @@ def CheckoutView(request):
 
     if BillingAddress.objects.filter(user=request.user):
         billingaddress = BillingAddress.objects.get(user=request.user)
-
+        print(billingaddress)
+        found_billing_address = True
         context = {
             'days': days,
             'total': total,
             'booked_from': dateutil.parser.parse(booked_from),
             'booked_until': dateutil.parser.parse(booked_until),
             'billingaddress': billingaddress,
+            'found_billing_address': found_billing_address,
             'motorhome': motorhome,
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
         }
     else:
+        found_billing_address = False
+
         context = {
             'days': days,
             'total': total,
             'booked_from': dateutil.parser.parse(booked_from),
             'booked_until': dateutil.parser.parse(booked_until),
+            'found_billing_address': found_billing_address,
             'billingaddress': None,
             'motorhome': motorhome,
             'stripe_public_key': stripe_public_key,
@@ -115,18 +117,6 @@ def CheckoutView(request):
             postcode = request.POST.get('postal_code', False),
             city = request.POST.get('locality', False),
             country = request.POST.get('country', False),
-            print(request.session['user.pk'])
-            print(Booking.objects.get(booking_id=booking_id))
-            print(full_name[0])
-            print(email[0])
-            print(phone_number[0])
-            print(address_line1[0])
-            print(address_line2[0])
-            print(postcode[0])
-            print(city[0])
-            print(country[0])
-            print(total)
-            print(intent.id)
             bookingsummary = BookingSummary(
                 user=request.user,
                 booking=Booking.objects.get(booking_id=booking_id),
@@ -142,8 +132,6 @@ def CheckoutView(request):
                 stripe_pid=intent.id
             )
             bookingsummary.save()
-            print(bookingsummary)
-            print(bookingsummary.booking_reference)
             # set boking status to paid and confirmed
             bookingsummary.booking.status_to_paid_and_confirmed()
             request.session['booking_reference'] = bookingsummary.booking_reference

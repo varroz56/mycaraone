@@ -8,17 +8,21 @@
 ></script>
 <script src="{% static 'checkout/js/googleapi.js' %}"></script>
 
-{% endblock %}{% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}
-{% block main_content %} 
+{% endblock %}{% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %} {% block main_content %}
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">checkout</p>
 
-<form id="payment-form" action="{% url 'checkout' %}" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
+<form
+  id="payment-form"
+  action="{% url 'checkout' %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+{% csrf_token %}
   <div class="album py-5 mx-0 px-0 bg-dark w-100">
     <div class="container">
       <div class="row px-0 mx-0">
-        <div class="col-md-12 col-lg-4  text-dark">
+        <div class="col-md-12 col-lg-4 text-dark">
           <div
             id="motorhome-details"
             class="card checkout-form mx-3 px-3 text-dark text-uppercase border rounded h-100 bg-dark my-2 py-2"
@@ -70,7 +74,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-12 col-lg-4  text-dark">
+        <div class="col-md-12 col-lg-4 text-dark">
           <div
             id="billing-details"
             class="card checkout-form mx-3 px-3 text-dark text-uppercase border rounded h-100 bg-dark my-2 py-2"
@@ -78,10 +82,16 @@
             <div class="card-title my-2 py-2 text-center bg-light">
               <p class="py-2 my-2">billing address</p>
             </div>
-            {% if not billingaddress == None %}       
+            {% if found_billing_address %} 
             <fieldset class="rounded px-1 py-1 text-uppercase">
-              <legend class="fieldset-label text-light">Contact Details:</legend>
-              <label for="full_name" class="text-uppsercase text-center text-light">Full Name</label>
+              <legend class="fieldset-label text-light">
+                Contact Details:
+              </legend>
+              <label
+                for="full_name"
+                class="text-uppsercase text-center text-light"
+                >Full Name</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -92,7 +102,9 @@
                 required
                 label="Full name"
               />
-              <label for="email" class="text-uppsercase text-center text-light">Email Address</label>
+              <label for="email" class="text-uppsercase text-center text-light"
+                >Email Address</label
+              >
               <input
                 type="email"
                 class="form-control py-2 my-2"
@@ -102,7 +114,11 @@
                 value="{{billingaddress.email}}"
                 required
               />
-              <label for="phone_number" class="text-uppsercase text-center text-light">Phone Number</label>
+              <label
+                for="phone_number"
+                class="text-uppsercase text-center text-light"
+                >Phone Number</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -115,7 +131,11 @@
             </fieldset>
             <fieldset class="rounded px-1 py-1 text-uppercase">
               <legend class="fieldset-label">Street Address:</legend>
-              <label for="street_number" class="text-uppsercase text-center text-light">Address line 1</label>
+              <label
+                for="street_number"
+                class="text-uppsercase text-center text-light"
+                >Address line 1</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -125,7 +145,9 @@
                 value="{{billingaddress.address_line1}}"
                 required
               />
-              <label for="route" class="text-uppsercase text-center text-light">Address Line 2</label>
+              <label for="route" class="text-uppsercase text-center text-light"
+                >Address Line 2</label
+              >
 
               <input
                 type="text"
@@ -133,15 +155,15 @@
                 id="route"
                 name="route"
                 aria-describedby="textHelp"
-                {% if billingaddress.address_line2 %}
                 value="{{billingaddress.address_line2}}"
-                {% else %}
-                value=""
-                {% endif %}
               />
             </fieldset>
             <fieldset class="rounded px-1 py-1 text-uppercase">
-              <label for="postal_code" class="text-uppsercase text-center text-light">Postcode/ZIP</label>
+              <label
+                for="postal_code"
+                class="text-uppsercase text-center text-light"
+                >Postcode/ZIP</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -151,7 +173,11 @@
                 value="{{billingaddress.postcode}}"
                 required
               />
-              <label for="localty" class="text-uppsercase text-center text-light">City</label>
+              <label
+                for="localty"
+                class="text-uppsercase text-center text-light"
+                >City</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -161,7 +187,11 @@
                 value="{{billingaddress.city}}"
                 required
               />
-              <label for="country" class="text-uppsercase text-center text-light">Country</label>
+              <label
+                for="country"
+                class="text-uppsercase text-center text-light"
+                >Country</label
+              >
               <input
                 type="text"
                 class="form-control py-2 my-2"
@@ -177,7 +207,7 @@
             <fieldset class="rounded px-3 py-2 text-uppercase">
               <div id="locationField" class="rounded">
                 <input
-                  class="form-control py-2 my-2 text-center"
+                  class="form-control py-1 my-1 text-center"
                   id="autocomplete"
                   placeholder="Search for you address"
                   onFocus="geolocate()"
@@ -185,12 +215,14 @@
                 />
               </div>
             </fieldset>
-            
-            <fieldset class="rounded px-1 py-1 text-uppercase">
-              <legend class="fieldset-label">Contact Details:</legend>
+
+            <fieldset class="rounded px-3 py-2 text-uppercase">
+              <legend class="fieldset-label text-light">
+                Contact Details:
+              </legend>
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="full_name"
                 name="full_name"
                 aria-describedby="textHelp"
@@ -199,7 +231,7 @@
               />
               <input
                 type="email"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="email"
                 name="email"
                 aria-describedby="textHelp"
@@ -209,7 +241,7 @@
               />
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="phone_number"
                 name="phone_number"
                 aria-describedby="textHelp"
@@ -217,11 +249,11 @@
                 required
               />
             </fieldset>
-            <fieldset class="rounded px-1 py-1 text-uppercase">
-              <legend class="fieldset-label">Street Address:</legend>
+            <fieldset class="rounded px-3 py-2 text-uppercase">
+              <legend class="fieldset-label text-light">Street Address:</legend>
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="street_number"
                 name="street_number"
                 aria-describedby="textHelp"
@@ -230,18 +262,18 @@
               />
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="route"
                 name="route"
                 aria-describedby="textHelp"
                 placeholder="Address Line 2"
               />
             </fieldset>
-            <fieldset class="rounded px-1 py-1 text-uppercase">
-              <legend class="fieldset-label">Location:</legend>
+            <fieldset class="rounded px-3 py-2 text-uppercase">
+              <legend class="fieldset-label text-light">Location:</legend>
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="postal_code"
                 name="postal_code"
                 aria-describedby="textHelp"
@@ -250,7 +282,7 @@
               />
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="locality"
                 name="locality"
                 aria-describedby="textHelp"
@@ -259,7 +291,7 @@
               />
               <input
                 type="text"
-                class="form-control py-2 my-2"
+                class="form-control py-1 my-1"
                 id="country"
                 name="country"
                 aria-describedby="textHelp"
@@ -270,7 +302,7 @@
             {% endif %}
           </div>
         </div>
-        <div class="col-md-12 col-lg-4 ">
+        <div class="col-md-12 col-lg-4">
           <div
             id="payment-details"
             class="card checkout-form mx-3 px-3 text-dark text-uppercase border rounded h-100 bg-dark my-2 py-2"
@@ -322,9 +354,13 @@
               </div>
               <!-- We'll put the error messages in this element -->
               <div id="card-errors" role="alert" class="text-center"></div>
-
             </fieldset>
-            <button id="submit-button" class="btn btn-success w-100 by-3 my3 text-uppercase">Pay</button>
+            <button
+              id="submit-button"
+              class="btn btn-success w-100 by-3 my3 text-uppercase"
+            >
+              Pay
+            </button>
           </div>
         </div>
       </div>
@@ -333,12 +369,15 @@
 </form>
 <div id="loading-overlay">
   <h1 class="loading-spinner">
-      <span class="icon">
-        <i id="spinner" class="fas fa-spinner fa-spin fa-4x"></i>
-      </span>
+    <span class="icon">
+      <i id="spinner" class="fas fa-spinner fa-spin fa-4x"></i>
+    </span>
   </h1>
 </div>
 
-{% endblock %} {% block postload_js %} {{ block.super }} {{stripe_public_key|json_script:"id_stripe_public_key" }} {{client_secret|json_script:"id_client_secret" }}
+{% endblock %} {% block postload_js %} {{ block.super }}
+{{stripe_public_key|json_script:"id_stripe_public_key" }}
+{{client_secret|json_script:"id_client_secret" }} {{found_billing_address|json_script:"id_found_billing_address" }}
 <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+</script>
 {% endblock %}

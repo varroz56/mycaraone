@@ -10,6 +10,12 @@
 {% endblock %}{% block subtitle %} Checkout{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %} {% block main_content %}
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">checkout</p>
+<div class="progress">
+  <div class="progress-bar bg-success text-strong text-uppercase text-dark" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"> <i class="fas fa-calendar-check">Dates selected</i></div>
+  <div class="progress-bar bg-success text-uppercase text-dark" role="progressbar" style="width: 33%;" aria-valuenow="66" aria-valuemin="33" aria-valuemax="100"><i class="fas fa-check-square">address added</i></div>
+  <div class="progress-bar bg-warning text-strong text-uppercase text-dark" role="progressbar" style="width: 34%;" aria-valuenow="100" aria-valuemin="66" aria-valuemax="100"><i class="fas fa-long-arrow-alt-right">payment</i></div>
+</div>
+
 <form id="payment-form" method="POST" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="album py-5 mx-0 px-0 bg-dark w-100">

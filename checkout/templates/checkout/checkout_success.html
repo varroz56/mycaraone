@@ -3,6 +3,12 @@
 {% endblock %} {% block subtitle %} Checkout Success{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %} {% block main_content %}
 <div class="my-3 py-3"></div>
 <p class="display-4 text-uppercase text-center pt-3">Booking summary</p>
+<div class="progress">
+  <div class="progress-bar bg-success text-uppercase text-dark" role="progressbar" style="width: 33%;" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"> <i class="fas fa-calendar-check">Dates selected</i></div>
+  <div class="progress-bar bg-success text-uppercase text-dark" role="progressbar" style="width: 33%;" aria-valuenow="66" aria-valuemin="33" aria-valuemax="100"><i class="fas fa-check-square">address added</i></div>
+  <div class="progress-bar bg-success text-uppercase text-dark" role="progressbar" style="width: 34%;" aria-valuenow="100" aria-valuemin="66" aria-valuemax="100"><i class="fas fa-flag-checkered">payment complete</i></div>
+</div>
+
 <div class="mt-3 pt3"></div>
 <div class="album py-5 bg-dark">
   <div class="checkout-success-form bg-dark">

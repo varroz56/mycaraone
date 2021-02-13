@@ -152,7 +152,6 @@ def CheckoutThisBooking(request, pk):
         days = td.days
         total = td.days*motorhome.daily_rental_fee
         request.session['motorhome.pk'] = motorhome.id
-
         request.session['days'] = days
         request.session['total'] = total
         request.session['booked_from'] = booked_from.isoformat()

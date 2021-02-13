@@ -46,7 +46,7 @@ def CheckoutAddressView(request):
         messages.add_message(
             request, messages.WARNING, 'Please login or register to complete your booking.')
         return redirect(reverse('motorhomes'))
-    if Billingaddress.objects.filter(user=request.user):
+    if BillingAddress.objects.filter(user=request.user):
         return reverse(redirect('checkout'))
     try:
         if request.user.id != request.session['user.pk']:
@@ -55,6 +55,7 @@ def CheckoutAddressView(request):
             return redirect(reverse('motorhomes'))
         # get vars from session
         mid = request.session['motorhome.pk']
+        motorhome = Motorhome.objects.get(pk=mid)
         days = request.session['days']
         total = request.session['total']
         booked_from = request.session['booked_from']
@@ -69,6 +70,12 @@ def CheckoutAddressView(request):
     context = {
         'form': form,
         'user': request.user,
+        'motorhome': motorhome,
+        'days': days,
+        'total': total,
+        'booked_from': dateutil.parser.parse(booked_from),
+        'booked_until': dateutil.parser.parse(booked_until),
+        'booking_id': booking_id,
     }
 
     if request.method == 'POST':

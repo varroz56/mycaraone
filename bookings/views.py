@@ -35,7 +35,7 @@ def MyBookings(request):
         return redirect(reverse('motorhomes'))
 
     user = request.user
-    bookings = Booking.objects.filter(booked_by=user)
+    bookings = Booking.objects.filter(booked_by=user).order_by('-booked_on')
 
     context = {
         'bookings': bookings,

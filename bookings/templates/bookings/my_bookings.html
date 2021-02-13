@@ -7,53 +7,46 @@
 
 {% endblock %}{% block subtitle %}Book {{motorhome.nickname}}{% endblock %} {% block navbar %}{% include 'includes/navbar.html' %}{% endblock %}{% block main_content %}
 <div class="mb-5 pb-5 pt-0 mt-0"></div>
-<p class="display-4 text-uppercase text-center mt-2 pt-2">
-   My Bookings
-</p>
+<p class="display-4 text-uppercase text-center mt-2 pt-2">My Bookings</p>
 
-  <div class="album py-5 bg-dark">
-    <a
-      class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
-      href="{% url 'index'%}"
-    >
-      Go to the Home page
-    </a>
-    <div class="container booking-form">
-      <div class="row">
-        <div class="col-md-12 align-self-center py-2 my-2">
-            <div class="table-responsive">
-                <table class="table w-100 bg-light">
-                  <thead>
-                    <tr>
-                      <th scope="col">Booking ID</th>
-                      <th scope="col">Booked vehicle</th>
-                      <th scope="col">Pick up date</th>
-                      <th scope="col">Drop off date</th>
-                      <th scope="col">Booking created</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      {% for booking in bookings %}
-                    <tr>
-                      <th scope="row">{{booking.id}}</th>
-                      <td>{{booking.booked_vehicle}}</td>
-                      <td>{{booking.booked_from}}</td>
-                      <td>{{booking.booked_until}}</td>
-                      <td>{{booking.booked_on}}</td>
-                    </tr>
-                    {% endfor %}
-                  </tbody>
-                </table>
+<div class="album py-5 bg-dark">
+  <a
+    class="btn btn-secondary w-100 mt-0 mb-3 py-3 text-dark text-uppercase"
+    href="{% url 'index'%}"
+  >
+    Go to the Home page
+  </a>
+  <div class="container booking-form">
+    <div class="row">
+      <div class="col-md-12 align-self-center py-2 my-2">
+        <div id="accordion">
+          {% for booking in bookings %}
+          <div class="card">
+            <div class="card-header" id="headerId{{booking.id}}">
+              <h5 class="mb-0">
+                <button class="btn btn-link" data-toggle="collapse" data-target="#Id{{booking.id}}" aria-expanded="true" aria-controls="Id{{booking.id}}">
+                  Id{{booking.id}}
+                </button>
+              </h5>
+            </div>
+        
+            <div id="Id{{booking.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
               </div>
+            </div>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>
-    <div class="card-text w-100">
-      <a
-        class="btn btn-secondary w-100 my-3 py-3 text-dark text-uppercase"
-        href="{% url 'index'%}"
-        >Go to the Home page</a
-      >
-    </div>
   </div>
+  <div class="card-text w-100">
+    <a
+      class="btn btn-secondary w-100 my-3 py-3 text-dark text-uppercase"
+      href="{% url 'index'%}"
+      >Go to the Home page</a
+    >
+  </div>
+</div>
 {% endblock %}

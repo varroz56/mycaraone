@@ -6,11 +6,13 @@ from profiles.models import UserProfile
 from .forms import BookingForm, BookThisMotorhomeForm
 from django.contrib import messages
 from motorhomes.models import Motorhome
+import json
 import dateutil
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from checkout.models import BillingAddress, BookingSummary
+from checkout.views import CheckoutAddressView, CheckoutView
 
 # a view to show all bookings
 
@@ -36,7 +38,8 @@ def MyBookings(request):
 
     user = request.user
     bookings = Booking.objects.filter(booked_by=user).order_by('-booked_on')
-    bsummaries = BookingSummary.objects.filter(user=request.user).order_by('-date_created')
+    bsummaries = BookingSummary.objects.filter(
+        user=request.user).order_by('-date_created')
     context = {
         'bookings': bookings,
         'bsummaries': bsummaries,
@@ -92,15 +95,10 @@ def BookThisMotorhome(request, pk):
             booking = Booking(
                 booked_by=user,
                 booked_vehicle=motorhome,
-                booked_from=booked_from_parsed,
-                booked_until=booked_until_parsed,
+                booked_from=booked_from,
+                booked_until=booked_until,
             )
             booking.save()
-            # send booking details and days to checkout view
-            context = {
-                'motorhome': motorhome,
-                'form': form,
-            }
             # add booking information to session
             # so it can be accessed later on
             request.session['motorhome.pk'] = pk
@@ -118,11 +116,11 @@ def BookThisMotorhome(request, pk):
             # no billing address saved, redirect to the checkout checkout view to add it before go to payment
             billingaddress = BillingAddress.objects.filter(user=request.user)
             if billingaddress:
-                return redirect(reverse('checkout'), context)
+                return redirect(reverse('checkout'))
                 messages.add_message(request, messages.SUCCESS,
                                      "Your Booking has been created, let's go to checkout")
             else:
-                return redirect(reverse('checkout_address'), context)
+                return redirect(reverse('checkout_address'))
                 messages.add_message(request, messages.SUCCESS,
                                      "Your Booking has been created, let's add a billingadress")
         except:
@@ -131,3 +129,50 @@ def BookThisMotorhome(request, pk):
             return render(request, template, context)
 
     return render(request, template, context)
+
+
+@login_required
+def CheckoutThisBooking(request, pk):
+    """ This view is to redirect user to
+    checkout from the my bookings page
+    This can happen if the user have not finished the checkout
+    after the booking was made
+    """
+
+    try:
+        booking = Booking.objects.get(pk=pk)
+        motorhome = get_object_or_404(Motorhome, pk=booking.booked_vehicle.id)
+        user = request.user
+        request.session['user.pk'] = user.pk
+        # get the dates from the form
+        booked_from = booking.booked_from
+        booked_until = booking.booked_until
+        td = booked_until-booked_from
+        # get days to count the total
+        days = td.days
+        total = td.days*motorhome.daily_rental_fee
+        request.session['motorhome.pk'] = motorhome.id
+
+        request.session['days'] = days
+        request.session['total'] = total
+        request.session['booked_from'] = booked_from.isoformat()
+        request.session['booked_until'] = booked_until.isoformat()
+        request.session['booking_id'] = booking.booking_id
+        # uopdate userprofile instance with the last booking ref
+        UserProfile.objects.filter(pk=user.id).update(
+            last_booking_ref=booking.booking_id)
+        # If user has billingaddress then go to the checkout view,
+        # no billing address saved, redirect to the checkout checkout view to add it before go to payment
+        billingaddress = BillingAddress.objects.filter(user=request.user)
+        if billingaddress:
+            return redirect(reverse('checkout'))
+            messages.add_message(request, messages.SUCCESS,
+                                 "Billing Address found, let's checkout")
+        else:
+            return redirect(reverse('checkout_address'))
+            messages.add_message(request, messages.SUCCESS,
+                                 "Billing Address not found, let's add a billing adress")
+    except:
+        messages.add_message(request, messages.ERROR,
+                             'Sorry, We were unable to progress with your booking, please try again or contact us')
+        return redirect(reverse(MyBookings))

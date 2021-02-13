@@ -169,7 +169,6 @@ def CheckoutView(request):
         try:
             # getting checkout data
             full_name = request.POST.get('full_name', False),
-            print(full_name)
             email = request.POST.get('email', False),
             phone_number = request.POST.get('phone_number', False),
             address_line1 = request.POST.get('street_number', False),
@@ -177,7 +176,6 @@ def CheckoutView(request):
             postcode = request.POST.get('postal_code', False),
             city = request.POST.get('locality', False),
             country = request.POST.get('country', False),
-            print(country)
             bookingsummary = BookingSummary(
                 user=request.user,
                 booking=Booking.objects.get(booking_id=booking_id),
@@ -192,7 +190,6 @@ def CheckoutView(request):
                 booking_total=total,
                 stripe_pid=intent.id
             )
-            print(bookingsummary)
             bookingsummary.save()
             # set boking status to paid and confirmed
             bookingsummary.booking.status_to_paid_and_confirmed()

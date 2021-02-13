@@ -10,6 +10,7 @@ import dateutil
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from checkout.models import BillingAddress
 
 # a view to show all bookings
 
@@ -102,7 +103,7 @@ def BookThisMotorhome(request, pk):
             # add booking information to session
             # so it can be accessed later on
             request.session['motorhome.pk'] = pk
-            
+
             request.session['days'] = days
             request.session['total'] = total
             request.session['booked_from'] = booked_from
@@ -112,9 +113,17 @@ def BookThisMotorhome(request, pk):
             UserProfile.objects.filter(pk=user.id).update(
                 last_booking_ref=booking.booking_id)
 
-            return redirect(reverse('checkout'), context)
-            messages.add_message(request, messages.SUCCESS,
-                                 "Your Booking has been created, let's go to checkout")
+            # If user has billingaddress then go to the checkout view,
+            # no billing address saved, redirect to the checkout checkout view to add it before go to payment
+            billingaddress = BillingAddress.objects.filter(user=request.user)
+            if billingaddress:
+                return redirect(reverse('checkout'), context)
+                messages.add_message(request, messages.SUCCESS,
+                                     "Your Booking has been created, let's go to checkout")
+            else:
+                return redirect(reverse('checkout_address'), context)
+                messages.add_message(request, messages.SUCCESS,
+                                     "Your Booking has been created, let's add a billingadress")
         except:
             messages.add_message(request, messages.ERROR,
                                  'Sorry, We were unable to create your booking, please try again or contact us')

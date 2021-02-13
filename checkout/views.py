@@ -6,6 +6,8 @@ from .models import BillingAddress, BookingSummary
 from bookings.models import Booking
 from motorhomes.models import Motorhome
 from profiles.models import UserProfile
+from profiles.forms import BillingAddressForm
+
 # https://stripe.com/docs/payments/accept-a-payment?integration=elements
 # https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/server/python/server.py#L43-L46
 # CodeInstitute checkout app
@@ -29,13 +31,79 @@ def CacheCheckoutDataView(request):
             'booking_id': request.session['booking_id'],
             'user': request.user,
         })
-        print(request.session['booking_id'])
-        print(request.user)
         return HttpResponse(status=200)
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
             processed right now. Please try again later.')
         return HttpResponse(content=e, status=400)
+
+
+@login_required
+def CheckoutAddressView(request):
+    """ This view is to add billingaddress if it 
+    does not exists before redirecting to the checkout page """
+    if not request.user.is_authenticated:
+        messages.add_message(
+            request, messages.WARNING, 'Please login or register to complete your booking.')
+        return redirect(reverse('motorhomes'))
+    if Billingaddress.objects.filter(user=request.user):
+        return reverse(redirect('checkout'))
+    try:
+        if request.user.id != request.session['user.pk']:
+            messages.add_message(
+                request, messages.WARNING, 'Your session expired please create a new booking')
+            return redirect(reverse('motorhomes'))
+        # get vars from session
+        mid = request.session['motorhome.pk']
+        days = request.session['days']
+        total = request.session['total']
+        booked_from = request.session['booked_from']
+        booked_until = request.session['booked_until']
+        booking_id = request.session['booking_id']
+    except:
+        messages.add_message(
+            request, messages.WARNING, 'Your session expired please create a new booking')
+        return redirect(reverse('motorhomes'))
+    template = 'checkout/checkout_address.html'
+    form = BillingAddress()
+    context = {
+        'form': form,
+        'user': request.user,
+    }
+
+    if request.method == 'POST':
+        form = BillingAddress()
+        full_name = request.POST.get('full_name', False),
+        email = request.POST.get('email', False),
+        phone_number = request.POST.get('phone_number', False),
+        address_line1 = request.POST.get('street_number', False),
+        address_line2 = request.POST.get('route', False),
+        postcode = request.POST.get('postal_code', False),
+        city = request.POST.get('locality', False),
+        country = request.POST.get('country', False),
+
+        try:
+            billingaddress = BillingAddress(
+                user=request.user,
+                full_name=full_name[0],
+                email=email[0],
+                phone_number=phone_number[0],
+                address_line1=address_line1[0],
+                address_line2=address_line2[0],
+                postcode=postcode[0],
+                city=city[0],
+                country=country[0],
+            )
+            billingaddress.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'Billing address applied opening payment page')
+            return redirect(reverse(CheckoutView))
+        except:
+            messages.add_message(request, messages.ERROR,
+                                 'Sorry, We were unable to save your Billing Address, please try again')
+            return render(request, template, context)
+
+    return render(request, template, context)
 
 
 @login_required
@@ -78,38 +146,23 @@ def CheckoutView(request):
 
     if BillingAddress.objects.filter(user=request.user):
         billingaddress = BillingAddress.objects.get(user=request.user)
-        print(billingaddress)
-        found_billing_address = True
+
         context = {
             'days': days,
             'total': total,
             'booked_from': dateutil.parser.parse(booked_from),
             'booked_until': dateutil.parser.parse(booked_until),
             'billingaddress': billingaddress,
-            'found_billing_address': found_billing_address,
             'motorhome': motorhome,
             'stripe_public_key': stripe_public_key,
             'client_secret': intent.client_secret,
-        }
-    else:
-        found_billing_address = False
-
-        context = {
-            'days': days,
-            'total': total,
-            'booked_from': dateutil.parser.parse(booked_from),
-            'booked_until': dateutil.parser.parse(booked_until),
-            'found_billing_address': found_billing_address,
-            'billingaddress': None,
-            'motorhome': motorhome,
-            'stripe_public_key': stripe_public_key,
-            'client_secret': stripe.api_key,
         }
 
     if request.method == 'POST':
         try:
             # getting checkout data
             full_name = request.POST.get('full_name', False),
+            print(full_name)
             email = request.POST.get('email', False),
             phone_number = request.POST.get('phone_number', False),
             address_line1 = request.POST.get('street_number', False),
@@ -117,6 +170,7 @@ def CheckoutView(request):
             postcode = request.POST.get('postal_code', False),
             city = request.POST.get('locality', False),
             country = request.POST.get('country', False),
+            print(country)
             bookingsummary = BookingSummary(
                 user=request.user,
                 booking=Booking.objects.get(booking_id=booking_id),
@@ -131,6 +185,7 @@ def CheckoutView(request):
                 booking_total=total,
                 stripe_pid=intent.id
             )
+            print(bookingsummary)
             bookingsummary.save()
             # set boking status to paid and confirmed
             bookingsummary.booking.status_to_paid_and_confirmed()

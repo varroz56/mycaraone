@@ -2,8 +2,6 @@
 // pull stripe api keys from the checkout page
 var stripe_public_key = $("#id_stripe_public_key").text().slice(1, -1);
 var client_secret = $("#id_client_secret").text().slice(1, -1);
-var found_billing_address = $("#id_found_billing_address").text().slice(1, -1);
-console.log(found_billing_address);
 var stripe = Stripe(stripe_public_key);
 var elements = stripe.elements();
 // stile the card element
@@ -58,29 +56,8 @@ form.addEventListener("submit", function (ev) {
   $("#payment-form").fadeToggle("slow");
   $("#loading-overlay").fadeToggle(70);
 
-  if (found_billing_address){
-    var name = $.trim(form.full_name.value);
-    var phone = $.trim(form.phone_number.value);
-    var email = $.trim(form.email.value);
-    var line1 = $.trim(form.street_number.value);
-    var line2 = $.trim(form.route.value);
-    var city = $.trim(form.locality.value);
-    var country = $.trim(form.country.value);
-  }
-  else{
-    var name = getElementById(full_name).value;
-    var phone = getElementById(phone_number).value;
-    var email = getElementById(email).value;
-    var line1 = getElementById(street_number).value;
-    var line2 = getElementById(route).value;
-    var city = getElementById(locality).value;
-    var country = getElementById(country).value;
-
-  }
-  console.log(name);
   //using the csrf token
   var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-  console.log(csrfToken);
   // define postData form the csrf token and the client secret
   var postData = {
     csrfmiddlewaretoken: csrfToken,
@@ -97,14 +74,14 @@ form.addEventListener("submit", function (ev) {
           payment_method: {
             card: card,
             billing_details: {
-              name: name,
-              phone: phone,
-              email: email,
+              name: $.trim(form.full_name.value),
+              phone: $.trim(form.phone_number.value),
+              email: $.trim(form.email.value),
               address: {
-                line1: line1,
-                line2: line2,
-                city: locality,
-                country: country,
+                line1: $.trim(form.street_number.value),
+                line2: $.trim(form.route.value),
+                city: $.trim(form.locality.value),
+                country: $.trim(form.country.value),
               },
             },
           },

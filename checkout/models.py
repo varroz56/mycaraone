@@ -12,14 +12,14 @@ class BillingAddress(models.Model):
     user = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE)
 
-    full_name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    phone_number = models.CharField(max_length=50)
-    address_line1 = models.CharField(max_length=255)
+    full_name = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=255, null=True, blank=True)
+    phone_number = models.CharField(max_length=50, null=True, blank=True)
+    address_line1 = models.CharField(max_length=255, null=True, blank=True)
     address_line2 = models.CharField(max_length=255, blank=True, null=True)
-    postcode = models.CharField(max_length=15)
-    city = models.CharField(max_length=200)
-    country = models.CharField(max_length=255)
+    postcode = models.CharField(max_length=15, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    country = models.CharField(max_length=2, null=True, blank=True)
 
     def __str__(self):
         return f"{self.full_name} - {self.user}"

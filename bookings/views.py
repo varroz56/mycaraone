@@ -10,7 +10,7 @@ import dateutil
 from dateutil.parser import parse
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from checkout.models import BillingAddress
+from checkout.models import BillingAddress, BookingSummary
 
 # a view to show all bookings
 
@@ -36,9 +36,10 @@ def MyBookings(request):
 
     user = request.user
     bookings = Booking.objects.filter(booked_by=user).order_by('-booked_on')
-
+    bsummaries = BookingSummary.objects.filter(user=request.user).order_by('-date_created')
     context = {
         'bookings': bookings,
+        'bsummaries': bsummaries,
     }
     return render(request, 'bookings/my_bookings.html', context)
 
